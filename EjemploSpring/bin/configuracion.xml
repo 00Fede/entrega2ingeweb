@@ -38,6 +38,7 @@
 				<value>co/edu/udea/iw/mapping/Reserva.hbm.xml</value>
 				<value>co/edu/udea/iw/mapping/Sancion.hbm.xml</value>
 				<value>co/edu/udea/iw/mapping/Autenticacion.hbm.xml</value>
+				<value>co/edu/udea/iw/mapping/PeticionAcceso.hbm.xml</value>
 			</list>
 		</property>
 		
@@ -82,6 +83,10 @@
 	</bean>
 	
 	<bean id="authDao" class="co.edu.udea.iw.dao.hibernate.AuthDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="peticionDao" class="co.edu.udea.iw.dao.hibernate.PeticionDaoHibernate">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	

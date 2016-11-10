@@ -64,6 +64,26 @@ CREATE TABLE IF NOT EXISTS `autenticacion` (
   PRIMARY KEY (`id_autenticacion`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11;
 
+CREATE TABLE IF NOT EXISTS `peticion_acceso`(
+`id_peticion` int(12) NOT NULL AUTO_INCREMENT,
+`cedula` int(12) NOT NULL,
+`nombre` varchar(50) NOT NULL,
+`apellido` varchar(50) NOT NULL,
+`usuario` varchar(50) NOT NULL,
+`contrasena` varchar(50) NOT NULL,
+`direccion` varchar(50) NOT NULL,
+`email` varchar(50) NOT NULL,
+`foto` longblob,
+`telefono` varchar(25) NOT NULL,
+`estado` varchar(25) NOT NULL DEFAULT 'pendiente',
+`admin` int(12) NULL,
+`justificacion` varchar(50),
+PRIMARY KEY (`id_peticion`),
+FOREIGN KEY (`admin`) REFERENCES usuarios(cedula)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11;
+
+
+
 INSERT INTO dispositivo(`numero_unico_serie`,`nombre`,`modelo`,`descripcion`,
 `restriccion`,`observaciones`,`estado`,`foto`,`disponibilidad`)
 VALUES (123,'rayos x','RCT54','Lector de rayos x','no sacar de la instalacion',
@@ -98,4 +118,10 @@ INSERT INTO usuarios VALUES (777,'Soy','Superusuario','supersu','5baa61e4c9b93f3
 INSERT INTO sancion VALUES (8899,333,1012,1039,'2016-10-20','limite de tiempo','72');
 
 INSERT INTO reserva VALUES (9988,333,1012,1039,'2016-10-18','72',0);
+
+INSERT INTO peticion_acceso VALUES (1,333,'jacinto','perez','japerez','password',
+'cl 76S','japerez@correo.com','3ab4','3332548','pendiente',1020,'justificacion');
+
+INSERT INTO peticion_acceso VALUES (1,234,'patricio','esponja','paesp','password',
+'roca','patri@correo.com','3ab4','4857955','rechazado',1039,'justificacion');
 
