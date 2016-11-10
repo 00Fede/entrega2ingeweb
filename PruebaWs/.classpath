@@ -9,181 +9,40 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/EjemploSpring"/>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/antlr-2.7.6.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/com.springsource.org.aopalliance-1.0.0.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/commons-collections-3.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/commons-logging.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/dom4j-1.6.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/hibernate3.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/hibernate-jpa-2.0-api-1.0.1.Final.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/javassist-3.12.0.GA.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/jta-1.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/log4j-1.2.17.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/mysql-connector-java-5.1.22-bin.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/slf4j-api-1.6.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/slf4j-log4j12-1.7.2.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-aop-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-beans-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-context-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-core-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-expression-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-jdbc-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-orm-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-test-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-tx-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/lib/spring-web-4.1.6.RELEASE.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/asm-3.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jackson-core-asl-1.5.5.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jackson-jaxrs-1.5.5.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jackson-mapper-asl-1.5.5.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jackson-xc-1.5.5.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jersey-client-1.4.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jersey-core-1.4.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jersey-json-1.4.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jersey-server-1.4.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jettison-1.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/lib/jsr311-api-1.1.1.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/aux10/ingeweb/jersey-archive-1.4/jersey-archive-1.4/contribs/jersey-spring-1.4.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/com.springsource.org.aopalliance-1.0.0.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/commons-logging.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/hibernate3.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/javassist-3.12.0.GA.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/jta-1.1.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/mysql-connector-java-5.1.22-bin.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/slf4j-log4j12-1.7.2.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-aop-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-beans-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-context-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-core-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-expression-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-jdbc-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-orm-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-test-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-tx-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/EjemploSpring/libs/spring-web-4.1.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-core-asl-1.5.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-jaxrs-1.5.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-mapper-asl-1.5.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jackson-xc-1.5.5.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-client-1.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-core-1.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-json-1.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jersey-server-1.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsr311-api-1.1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
