@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>PruebaWs</display-name>
+  <!-- -Configuracion del servlet -->
+	<servlet>
+	<!-- Servlet name -->
+		<servlet-name> Jersey REST Service </servlet-name>
+		<!-- Importa paquetes para que se puede ejecutar -->
+		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet </servlet-class>
+		<init-param >
+		<!-- Parametros iniciales para el servlet -->
+			<param-name >com.sun.jersey.config.property.packages </param-name>
+			<!-- Aca deberemos colocar el paquetes de nuestros servicios web -->
+			<param-value>co.udea.edu.iw.ws</param-value>
+		</init-param>
+		<!--  Con esto se indica que este servlet se debe cargar de primero -->
+		<load-on-startup>1 </load-on-startup>
+	</servlet>
+	<!-- Mapeo de Servlet -->
+	<servlet-mapping>
+		<!-- Nombre del servlet -->
+		<servlet-name> Jersey REST Service </servlet-name>
+		<!--  Esta será la url asociada al servlet -->
+		<url-pattern>/rest/* </url-pattern>
+	</servlet-mapping>
+	
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:configuracion.xml</param-value>
+	</context-param>
+</web-app>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2016 06:06:19 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="co.edu.udea.iw.dto.Usuarios" table="usuarios">
+        <id name="cedula" type="int">
+            <column name="cedula" length="12" />
+            <generator class="assigned" />
+        </id>
+        <property name="apellido" type="java.lang.String">
+            <column name="apellido" length="50" />
+        </property>
+        <property name="nombre" type="java.lang.String">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="usuario" type="java.lang.String">
+            <column name="usuario" length="50" />
+        </property>
+        <property name="contrasena" type="java.lang.String">
+            <column name="contrasena" length="50" />
+        </property>
+        <property name="rol" type="java.lang.String">
+            <column name="rol" length="25" />
+        </property>
+        <property name="direccion" type="java.lang.String">
+            <column name="direccion" length="50" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" length="50" />
+        </property>
+        <property name="foto" type="java.sql.Blob">
+            <column name="foto"/>
+        </property>
+        <property name="telefono" type="java.lang.String">
+            <column name="telefono" length="25" />
+        </property>
+		<property name="estado" type="java.lang.String">
+            <column name="estado" length="25" />
+        </property>
+    </class>
+</hibernate-mapping>

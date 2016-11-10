@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 6:36:26 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="co.edu.udea.iw.dto.Autenticacion" table="autenticacion">
+        <id name="id_auth" type="int">
+            <column name="id_autenticacion" length="12" />
+            <generator class="assigned" />
+        </id>
+        <property name="id" type="int">
+            <column name="id" length="12"/>
+        </property>
+        <property name="fecha_auth" type="java.util.Date">
+            <column name="fecha_auth" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/10/2016 06:12:05 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="co.edu.udea.iw.dto.Dispositivos" table="dispositivo">
+        <id name="Numero_serie" type="int">
+            <column name="numero_unico_serie" length="12" />
+            <generator class="assigned" />
+        </id>
+        <property name="Disponibilidad" type="java.lang.String">
+            <column name="disponibilidad" length="25" />
+        </property>
+        <property name="Nombre" type="java.lang.String">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="Modelo" type="java.lang.String">
+            <column name="modelo" length="50" />
+        </property>
+        <property name="Descripcion" type="java.lang.String">
+            <column name="descripcion" length="150" />
+        </property>
+        <property name="Restriccion" type="java.lang.String">
+            <column name="restriccion" length="150" />
+        </property>
+        <property name="Observacion" type="java.lang.String">
+            <column name="observaciones" length="150" />
+        </property>
+        <property name="Estado" type="java.lang.String">
+            <column name="estado" length="50" />
+        </property>
+        <property name="foto" type="java.sql.Blob">
+            <column name="foto"  />
+        </property>
+    </class>
+</hibernate-mapping>

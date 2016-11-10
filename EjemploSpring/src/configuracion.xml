@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	
+	
+	<!-- Con el siguiente comando le bridaremos un contexto a nuestro datasource, para que obtenga los datos -->
+	<!-- de nuestro archivo .properties --> 
+	<context:property-placeholder location="classpath:basedatos.properties"/>
+	
+	<!-- Creacion del datasource --> 
+	<!-- Como se podra observar nuestras propiedades del datasource se referencias desde el archivo .properties -->
+	<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- Nombre de la clases del driver --> 
+		<!-- Especificando las caracteristicas de el datasource --> 
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<!-- Nombre de la clases de la url --> 
+		<property name="url" value="${jdbc.url}"></property>
+		<!-- Nombre de la clases del username --> 
+		<property name="username" value="${jdbc.user}"></property>	
+		<!-- Nombre de la clases del pass --> 
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<!-- Despues de crear la session debemos referenciar el datasource a este bean --> 
+		<property name="dataSource" ref="datasource"></property>
+		<!-- Creacion de archivos de mapeo --> 
+		<property name="mappingResources">
+			<list>
+				<!-- La siguiente lista correspondera a los archivos de mapeo de cada uno de los pojos/entidades-->
+				<value>co/edu/udea/iw/mapping/Dispositivos.hbm.xml</value>
+				<value>co/edu/udea/iw/mapping/Usuarios.hbm.xml</value>
+				<value>co/edu/udea/iw/mapping/Reserva.hbm.xml</value>
+				<value>co/edu/udea/iw/mapping/Sancion.hbm.xml</value>
+				<value>co/edu/udea/iw/mapping/Autenticacion.hbm.xml</value>
+			</list>
+		</property>
+		
+			<!-- Propiedades de hibernate --> 
+		<property name="hibernateProperties">
+			<props>
+				<!-- Seleccion de dialecto de hibernate --> 
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+					<!-- Decidee si muestra o no las sentencias sql que se usan --> 
+				<prop key="hibernate.show_sql">true</prop>
+					<!-- Validacion de la logica del negocio --> 
+				<prop key="javax.persistence.validation.mode">none</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory"></property>
+		<property name="dataSource" ref="datasource"></property>
+	
+	</bean>
+	
+	
+	<!-- En este bean referenciaremos un session factory a neustro dao de ciudad --> 
+	<bean id="usuariosDao" class="co.edu.udea.iw.dao.hibernate.UsuarioDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- En este bean referenciaremos un session factory a neustro dao de usuario--> 
+	<bean id="dispositivoDao" class="co.edu.udea.iw.dao.hibernate.DispositivoDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- En este bean referenciaremos un session factory a neustro dao de usuario--> 
+	<bean id="reservaDao" class="co.edu.udea.iw.dao.hibernate.ReservaDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- En este bean referenciaremos un session factory a neustro dao de usuario--> 
+	<bean id="sancionDao" class="co.edu.udea.iw.dao.hibernate.SancionDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="authDao" class="co.edu.udea.iw.dao.hibernate.AuthDaoHibernate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+		<!-- En este bean referenciaremos un session factory a neustro dao de usuario--> 
+	<bean id="dispositivoBl" class="co.edu.udea.iw.bl_imp.DispositivoBlImp">
+		<constructor-arg name="dispDao" ref="dispositivoDao"></constructor-arg>
+		<constructor-arg name="usuarioDao" ref="usuariosDao"></constructor-arg>
+	</bean>
+	
+	<bean id="usuarioBl" class="co.edu.udea.iw.bl_imp.UsuarioBlImp">
+		<constructor-arg name="userDao" ref="usuariosDao"></constructor-arg>
+		<constructor-arg name="reservaDao" ref="reservaDao"></constructor-arg>
+		<constructor-arg name="sancionDao" ref="sancionDao"></constructor-arg>
+		<constructor-arg name="authDao" ref="authDao"></constructor-arg>
+	</bean>
+	
+	<bean id="reservaBl" class="co.edu.udea.iw.bl_imp.ReservaBlImp">
+		<constructor-arg name="reservaDao" ref="reservaDao"></constructor-arg>
+	</bean>
+	
+	<bean id="sancionBl" class="co.edu.udea.iw.bl_imp.SancionBlImp">
+		<constructor-arg name="sancionDao" ref="sancionDao"></constructor-arg>
+		<constructor-arg name="reservaDao" ref="reservaDao"></constructor-arg>
+		<constructor-arg name="usuariosDao" ref="usuariosDao"></constructor-arg>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<context:component-scan base-package="co.udea.edu.iw.ws"></context:component-scan>
+
+
+</beans>

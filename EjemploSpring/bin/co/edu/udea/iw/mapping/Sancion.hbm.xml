@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/10/2016 09:56:23 AM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="co.edu.udea.iw.dto.Sancion" table="sancion">
+        <id name="Id_sancion" type="int">
+            <column name="id_sancion" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="Id_dispositivo" class="co.edu.udea.iw.dto.Dispositivos" >
+            <column name="id_dis" length="12" />
+        </many-to-one>
+        <many-to-one name="Id_cedula" class="co.edu.udea.iw.dto.Usuarios" >
+            <column name="id_ced" length="12" />
+        </many-to-one>
+        <many-to-one name="Id_responsable" class="co.edu.udea.iw.dto.Usuarios" >
+            <column name="id_responsable" length="12" />
+        </many-to-one>
+        <property name="Fecha_inicio" type="java.util.Date">
+            <column name="fecha_ini" />
+        </property>
+        <property name="Razon" type="java.lang.String">
+            <column name="razon" length="100"/>
+        </property>
+        <property name="Tiempo_sancion" type="int">
+            <column name="tiempo_sancion" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
