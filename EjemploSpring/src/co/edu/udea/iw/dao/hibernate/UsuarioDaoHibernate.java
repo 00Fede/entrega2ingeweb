@@ -96,7 +96,7 @@ public class UsuarioDaoHibernate implements UsuariosDao {
 		
 
 		try {
-			session = session = sessionFactory.openSession();
+			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			//Actualiza el objeto ciudad en la base de datos
 			session.update(usuario);

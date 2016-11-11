@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `peticion_acceso`(
 `email` varchar(50) NOT NULL,
 `foto` longblob,
 `telefono` varchar(25) NOT NULL,
-`estado` varchar(25) NOT NULL DEFAULT 'pendiente',
+`estado` varchar(25) DEFAULT 'pendiente',
 `admin` int(12) NULL,
 `justificacion` varchar(50),
 PRIMARY KEY (`id_peticion`),
@@ -122,6 +122,6 @@ INSERT INTO reserva VALUES (9988,333,1012,1039,'2016-10-18','72',0);
 INSERT INTO peticion_acceso VALUES (1,333,'jacinto','perez','japerez','password',
 'cl 76S','japerez@correo.com','3ab4','3332548','pendiente',1020,'justificacion');
 
-INSERT INTO peticion_acceso VALUES (1,234,'patricio','esponja','paesp','password',
+INSERT INTO peticion_acceso VALUES (234,'patricio','esponja','paesp','password',
 'roca','patri@correo.com','3ab4','4857955','rechazado',1039,'justificacion');
 

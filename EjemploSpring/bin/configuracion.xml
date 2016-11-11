@@ -113,6 +113,12 @@
 		<constructor-arg name="usuariosDao" ref="usuariosDao"></constructor-arg>
 	</bean>
 	
+	<bean id="peticionBl" class="co.edu.udea.iw.bl_imp.PeticionBlImp">
+		<constructor-arg name="peticionDao" ref="peticionDao"></constructor-arg>
+		<constructor-arg name="authDao" ref="authDao"></constructor-arg>
+		<constructor-arg name="userDao" ref="usuariosDao"></constructor-arg>
+	</bean>
+	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<context:component-scan base-package="co.udea.edu.iw.ws"></context:component-scan>
 

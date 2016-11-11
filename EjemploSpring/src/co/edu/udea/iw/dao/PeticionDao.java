@@ -23,16 +23,20 @@ public interface PeticionDao {
 	public List<PeticionAcceso> obtener() throws MyDaoException;
 	
 	/**
-	 * Evalua peticion con id idPeticion, con el estado estado, agregando el responsable admini
-	 * y la justificacion de la decision
-	 * @param idPeticion - id de peticion a ser aprobada
-	 * @param admin - administrador responsable
-	 * @param estado - estado de la evaluacion (aprobado, rechazado)
-	 * @param justificacion - justificacion de decision
+	 * Obtiene peticion de acceso con id
+	 * @param id
+	 * @return
+	 * @throws MyDaoException
+	 */
+	public PeticionAcceso obtener(int id) throws MyDaoException;
+	
+	/**
+	 * Modifica un registro de peticion en la base de datos
+	 * @param peticion - peticion a modificar
 	 * @return true si la transaccion es correcta, falso de lo contrario
 	 * @throws MyDaoException
 	 */
-	public boolean evaluar(int idPeticion, String estado, Usuarios admin, String justificacion) throws MyDaoException;
+	public boolean modificar(PeticionAcceso peticion) throws MyDaoException;
 	
 	/**
 	 * Crea una nueva peticion

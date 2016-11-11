@@ -48,17 +48,22 @@ public class PeticionDaoHibernateTest {
 	}
 
 	/**
-	 * Test method for {@link co.edu.udea.iw.dao.hibernate.PeticionDaoHibernate#evaluar(int, java.lang.String, co.edu.udea.iw.dto.Usuarios, java.lang.String)}.
+	 * Test method for {@link co.edu.udea.iw.dao.hibernate.PeticionDaoHibernate#modificar(PeticionAcceso)}.
 	 */
 	@Test
-	public void testEvaluar() {
-		int id = 1;
-		String estado = "aprobado";
-		Usuarios admin = new Usuarios();
-		admin.setCedula(1039);
-		String justificacion = "nueva justificacion";
+	public void testModificar() {
+		PeticionAcceso peticion = new PeticionAcceso();
+		peticion.setCedula(4586);
+		peticion.setId(11);
+		peticion.setNombre("cristian");
+		peticion.setApellido("herrera");
+		peticion.setUsuario("cristihe");
+		peticion.setContrasena("herreras");
+		peticion.setDireccion("direccion2342");
+		peticion.setEmail("corre20@correo.com");
+		peticion.setTelefono("13124324");
 		try {
-			assertTrue(dao.evaluar(id, estado, admin, justificacion));
+			assertTrue(dao.modificar(peticion));
 		} catch (MyDaoException e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -90,5 +95,17 @@ public class PeticionDaoHibernateTest {
 			fail(e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testObtenerPeticion(){
+		try {
+			assertTrue(dao.obtener(1)!=null);
+		} catch (MyDaoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+
+
 
 }

@@ -21,7 +21,7 @@ import co.edu.udea.iw.dto.Reserva;
 import co.edu.udea.iw.dto.Sancion;
 import co.edu.udea.iw.dto.Usuarios;
 import co.edu.udea.iw.exception.MyDaoException;
-import co.edu.udea.iw.security.Cifrar;
+import co.edu.udea.iw.util.encode.Cifrar;
 import co.edu.udea.iw.util.validations.Validaciones;
 
 /**

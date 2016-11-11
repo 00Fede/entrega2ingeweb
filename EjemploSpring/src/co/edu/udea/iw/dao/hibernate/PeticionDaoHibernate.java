@@ -59,20 +59,14 @@ public class PeticionDaoHibernate implements PeticionDao {
 	 * @see co.edu.udea.iw.dao.PeticionDao#evaluar(int, java.lang.String, int, java.lang.String)
 	 */
 	@Override
-	public boolean evaluar(int idPeticion, String estado, Usuarios admin, String justificacion) throws MyDaoException {
+	public boolean modificar(PeticionAcceso peticion) throws MyDaoException {
 		Session session = null;
 		Transaction tx = null;
-		PeticionAcceso peticionEvaluada;
 		
 		try {
 			session = sessionFactory.openSession();
-			Criteria crit=session.createCriteria(PeticionAcceso.class).add(Restrictions.eq("id", idPeticion));
-			peticionEvaluada=(PeticionAcceso)crit.uniqueResult();
-			peticionEvaluada.setEstado(estado);
-			peticionEvaluada.setAdmin(admin);
-			peticionEvaluada.setJustificacion(justificacion);
 			tx = session.beginTransaction();
-			session.update(peticionEvaluada);
+			session.update(peticion);
 			tx.commit();
 			
 		} catch (HibernateException e) {
@@ -92,7 +86,7 @@ public class PeticionDaoHibernate implements PeticionDao {
 
 
 		try {
-			session = sessionFactory.openSession();
+			session = sessionFactory.getCurrentSession();
 			tx = session.beginTransaction();
 			session.save(peticion);
 			tx.commit();
@@ -102,6 +96,24 @@ public class PeticionDaoHibernate implements PeticionDao {
 
 		}
 		return true;
+	}
+
+	@Override
+	public PeticionAcceso obtener(int id) throws MyDaoException {
+		Session session = null;
+		Transaction tx = null;
+		PeticionAcceso resultado;
+		try {
+			session = sessionFactory.getCurrentSession();
+			tx = session.beginTransaction();
+			Criteria crit=session.createCriteria(Usuarios.class).add(Restrictions.eq("id", id));
+			resultado=(PeticionAcceso)crit.uniqueResult();
+			tx.commit();
+			
+		} catch (HibernateException e) {
+			throw new MyDaoException(e);
+		}
+		return resultado;
 	}
 
 }
