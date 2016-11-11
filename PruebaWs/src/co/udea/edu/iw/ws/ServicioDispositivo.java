@@ -22,15 +22,29 @@ import co.edu.udea.iw.dto.Dispositivos;
 import co.edu.udea.iw.exception.MyDaoException;
 import co.edu.udea.iw.ws.dto.DispositivoWs;
 
+
+/*
+* Clase creada para implementar las servicios web relacionados con nuestra
+* entidad Dispositivos
+* @author estudiantelis
+* Forma de acceder a esta clase http://localhost:8080/PruebaWs/rest/ServicioReserva
+*/
+
+
 @Path("servicioDispositivo")
 @Component
 public class ServicioDispositivo {
 
+	
+	/**
+	 * Definicion de nuestra inyeccion de tipo dispositivoBl
+	 * que contendrea todos los metodo de la logica del negocio de la entidad Dispositivos
+	 */
 	@Autowired
 	DispositivoBl dispositivoBl;
 
 	/**
-	 * 
+	 * Servicio encargado de obtener  todos los dispositivos agrupados por modelos
 	 * Link de muestra:
 	 * http://localhost:8080/PruebaWs/rest/servicioDispositivo/todosLosDispositivos
 	 **/
@@ -88,10 +102,10 @@ public class ServicioDispositivo {
 
 	/**
 	 * 
-	 * Link de muestra:
-	 * http://localhost:8080/PruebaWs/rest/servicioDispositivo/agregarDispositivo?cedResp=1010&nroSerie=1
-	 * &nombre=linterna&modelo=1.5g&peqDesc=una_muy_buena_linterna&restriccion=no_dejar_caer&
-	 * observacion=nuevas_pilas&estado=0&disponibilidad=1
+	 Link de muestra:
+	 http://localhost:8080/PruebaWs/rest/servicioDispositivo/agregarDispositivo?cedResp=1010&nroSerie=1
+	 &nombre=linterna&modelo=1.5g&peqDesc=una_muy_buena_linterna&restriccion=no_dejar_caer&
+	 observacion=nuevas_pilas&estado=0&disponibilidad=1
 	 **/
 
 	@POST
@@ -133,6 +147,26 @@ public class ServicioDispositivo {
 			return "La dispositivo fue dado de baja exitosamente";
 		} catch (MyDaoException e) {
 
+			throw new RemoteException(e.getMessage(), e);
+		}
+	}
+	
+	@PUT
+	@Produces(MediaType.TEXT_HTML)
+	@Path("modificarDispositivo")
+	public String modificarDispositivo(@QueryParam("cedResp") int cedResp, @QueryParam("nroSerie") int nroSerie,
+			@QueryParam("nombre") String nombre, @QueryParam("modelo") String modelo,
+			@QueryParam("peqDesc") String peqDesc, @QueryParam("restriccion") String restriccion,
+			@QueryParam("observacion") String observacion, @QueryParam("estado") String estado,
+			@QueryParam("disponibilidad") String disponibilidad) 
+			throws RemoteException, SerialException, SQLException {
+		try {
+
+			byte[] fotoRAW = { '1', '2' };
+			dispositivoBl.modificarDispositivo(cedResp, nroSerie, nombre, modelo, peqDesc, fotoRAW, restriccion,
+					observacion, estado, disponibilidad);
+			return "El dispositivo fue modificado exitosamente";
+		} catch (MyDaoException e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
