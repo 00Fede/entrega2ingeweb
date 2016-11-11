@@ -86,7 +86,7 @@ public class PeticionDaoHibernate implements PeticionDao {
 
 
 		try {
-			session = sessionFactory.getCurrentSession();
+			session = sessionFactory.openSession();
 			tx = session.beginTransaction();
 			session.save(peticion);
 			tx.commit();
@@ -104,11 +104,11 @@ public class PeticionDaoHibernate implements PeticionDao {
 		Transaction tx = null;
 		PeticionAcceso resultado;
 		try {
-			session = sessionFactory.getCurrentSession();
-			tx = session.beginTransaction();
-			Criteria crit=session.createCriteria(Usuarios.class).add(Restrictions.eq("id", id));
+			session = sessionFactory.openSession();
+			//tx = session.beginTransaction();
+			Criteria crit=session.createCriteria(PeticionAcceso.class).add(Restrictions.eq("id", id));
 			resultado=(PeticionAcceso)crit.uniqueResult();
-			tx.commit();
+			//tx.commit();
 			
 		} catch (HibernateException e) {
 			throw new MyDaoException(e);

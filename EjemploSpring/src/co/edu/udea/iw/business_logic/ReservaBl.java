@@ -1,7 +1,9 @@
 package co.edu.udea.iw.business_logic;
 
 import java.util.Date;
+import java.util.List;
 
+import co.edu.udea.iw.dto.Reserva;
 import co.edu.udea.iw.exception.MyDaoException;
 
 /*
@@ -53,5 +55,17 @@ public interface ReservaBl {
 	 * @throws MyDaoException
 	 */
 	public void cancelarPrestamo(int id_reserva,String estado) throws MyDaoException;
+	
+	
+	/**
+	 * FRQ-0030 - Ver historial de prestamos por investigador
+	 * Este metodo permite a un usuario tipo Administrador, ver un listado de las reservas
+	 * asociadas a un determinado investigador.
+	 * @param idResponsable - Administrador que llama el metodo
+	 * @param idInvest - Investigador al cual se le va a hacer la consulta
+	 * @return Lista de dispositivos asociados a investigador.
+	 * @throws MyDaoException
+	 */
+	public List<Reserva> verReservasPorInvest(int idInvest, int idResponsable) throws MyDaoException;
 	
 }

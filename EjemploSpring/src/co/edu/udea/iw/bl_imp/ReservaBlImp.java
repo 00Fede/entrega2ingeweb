@@ -1,13 +1,19 @@
 package co.edu.udea.iw.bl_imp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.udea.iw.business_logic.ReservaBl;
 import co.edu.udea.iw.dao.ReservaDao;
+import co.edu.udea.iw.dao.UsuariosDao;
 import co.edu.udea.iw.dto.Reserva;
+import co.edu.udea.iw.dto.Usuarios;
 import co.edu.udea.iw.exception.MyDaoException;
+import co.edu.udea.iw.util.validations.Validaciones;
 
 /*
  * see ReservaBl
@@ -19,13 +25,16 @@ import co.edu.udea.iw.exception.MyDaoException;
 public class ReservaBlImp implements ReservaBl {
 
 	ReservaDao reservaDao;
+	UsuariosDao usuariosDao;
+	Validaciones validaciones = new Validaciones();
 	
 	/**
 	 * Constructor de la implementacion. Necesario para inyeccion Spring
 	 * @param reservaDao
 	 */
-	public  ReservaBlImp(ReservaDao reservaDao) {
+	public  ReservaBlImp(ReservaDao reservaDao, UsuariosDao userDao) {
 		this.reservaDao = reservaDao;
+		this.usuariosDao = userDao;
 		
 	}
 	
@@ -135,5 +144,57 @@ public class ReservaBlImp implements ReservaBl {
 		
 		reservaDao.modificar(reserva);
 	}
+
+	@Override
+	public List<Reserva> verReservasPorInvest(int idInvest, int idResponsable)
+			throws MyDaoException {
+		if(!isActiveUser(idResponsable)) throw new MyDaoException("No se encuentra activo",null);
+		if(!matchRol(idResponsable, "administrador")) throw new MyDaoException("No tiene permiso para ver este listado",null);
+		List<Reserva> resultado = new ArrayList<Reserva>();
+		List<Reserva> todas = reservaDao.obtener();
+		if(todas==null||todas.size()==0) throw new MyDaoException("No existen reservas de investigador con cedula "
+				+ idInvest,null);
+		
+		
+		Iterator<Reserva> i = todas.iterator();
+		while(i.hasNext()){
+			Reserva r = i.next();
+			if(r.getId_cedula().getCedula()==idInvest){
+				resultado.add(r);
+			}
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Revisa si el usuario con cedula idResponsable, es del rol rol
+	 * @param id
+	 * @param rol
+	 * @return
+	 * @throws MyDaoException
+	 */
+	public boolean matchRol(int id, String rol) throws MyDaoException {
+		Usuarios userResponsable = usuariosDao.obtener(id);
+		if (userResponsable.getRol().equals(rol)) {
+			return true;
+		}
+		return false;
+	}
+
+
+	/**
+	 * Verifica que usuario del id ingresado tiene estado activo
+	 * @param id
+	 * @return true si usuario tiene estado activo, false en caso contrario
+	 * @throws MyDaoException
+	 */
+	public boolean isActiveUser(int id) throws MyDaoException {
+		Usuarios userResponsable = usuariosDao.obtener(id);
+		if (userResponsable.getEstado().equals("inactivo")) {
+			return false;
+		}
+		return true;
+	}
+
 
 }

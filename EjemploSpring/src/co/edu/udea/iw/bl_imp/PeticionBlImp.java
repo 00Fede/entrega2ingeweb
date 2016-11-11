@@ -70,9 +70,9 @@ public class PeticionBlImp implements PeticionBl {
 		
 		if (cedula == 0)throw new MyDaoException("Debe especificar cedula.", null);
 		if(existsId(cedula)) throw new MyDaoException("Ya existe una peticion o un usuario con esa cedula", null);
-		if(existeEmail(email)) throw new MyDaoException("Ya existe una peticion o un usuario con esa cedula",null);
+		if(existeEmail(email)) throw new MyDaoException("Ya existe una peticion o un usuario con este correo",null);
 		if (contrasena.length() < 6) throw new MyDaoException("La contraseña debe contener almenos 6 caracteres", null);
-		if (Validaciones.isEmail(email)) throw new MyDaoException("El correo electronico no es valido",null);
+		if (!Validaciones.isEmail(email)) throw new MyDaoException("El correo electronico no es valido",null);
 		if (email == null || "".equals(email.trim())) throw new MyDaoException("Debe especificar correo electronico", null);
 		if (telefono == null || "".equals(telefono.trim())) throw new MyDaoException("Debe especificar telefono", null);
 		if (direccion == null || "".equals(direccion.trim())) throw new MyDaoException("Debe especificar direccion", null);
@@ -82,12 +82,13 @@ public class PeticionBlImp implements PeticionBl {
 		peticion.setCedula(cedula);
 		peticion.setNombre(nombre);
 		peticion.setApellido(apellido);
+		peticion.setUsuario(usuario);
 		Cifrar c = new Cifrar();
 		peticion.setContrasena(c.encrypt(contrasena));
 		peticion.setDireccion(direccion);
 		peticion.setTelefono(telefono);
 		peticion.setEmail(email);
-		peticion.setFoto(new SerialBlob(fotoRaw));
+		if(fotoRaw!=null) peticion.setFoto(new SerialBlob(fotoRaw));
 				
 		peticionDao.crear(peticion);
 	}
@@ -100,8 +101,9 @@ public class PeticionBlImp implements PeticionBl {
 			throws MyDaoException {
 		if(!isActiveUser(admin)) throw new MyDaoException("No se encuentra activo para hacer esta operacion",null);
 		if(!matchRol(admin, "administrador")) throw new MyDaoException("No tiene permisos para hacer esta transaccion",null);
+		if(peticionDao.obtener(idPeticion)==null) throw new MyDaoException("La petición de acceso no existe", null);
 		String mEstado = peticionDao.obtener(idPeticion).getEstado();
-		if(mEstado.equals("aprobado") || mEstado.equals("rechazado")) throw new MyDaoException("La petición ya fue evaluada",null);
+		if(!mEstado.equals("pendiente")) throw new MyDaoException("La petición ya fue evaluada",null);
 		if(justificacion ==null || "".equals(justificacion.trim())) throw new MyDaoException("Debe registrar justificacion",null);
 		PeticionAcceso peticionEvaluada = peticionDao.obtener(idPeticion);
 		peticionEvaluada.setEstado(estado);

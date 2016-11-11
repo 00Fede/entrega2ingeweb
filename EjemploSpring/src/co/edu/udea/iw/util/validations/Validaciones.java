@@ -3,19 +3,23 @@ package co.edu.udea.iw.util.validations;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import co.edu.udea.iw.dao.UsuariosDao;
+import co.edu.udea.iw.dto.Usuarios;
+import co.edu.udea.iw.exception.MyDaoException;
+
 /**
  * Clase para validaciones en general del sistema
- * @author Elver Suárez Alzate
+ * @author Elver Suï¿½rez Alzate
  */
 public class Validaciones {
 	
 	private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    
+
 	/**
-	 * Valida que el correo electrónico establecido como parámetro sea un correo electrónico con formato válido
-	 * @param correo texto con el correo electrónico a validar
-	 * @return true si el texto tiene un formato de correo electrónico válido, de lo contrario retorna false
+	 * Valida que el correo electrï¿½nico establecido como parï¿½metro sea un correo electrï¿½nico con formato vï¿½lido
+	 * @param correo texto con el correo electrï¿½nico a validar
+	 * @return true si el texto tiene un formato de correo electrï¿½nico vï¿½lido, de lo contrario retorna false
 	 */
 	public static boolean isEmail(String email) {
 		 
@@ -43,5 +47,7 @@ public class Validaciones {
     	}    		
     	return false;
     }
+    
+
 	
 }

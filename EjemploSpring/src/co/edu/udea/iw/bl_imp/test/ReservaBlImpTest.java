@@ -2,6 +2,8 @@ package co.edu.udea.iw.bl_imp.test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import co.edu.udea.iw.business_logic.ReservaBl;
 import co.edu.udea.iw.business_logic.UsuarioBl;
 import co.edu.udea.iw.dao.UsuariosDao;
+import co.edu.udea.iw.dto.Reserva;
 import co.edu.udea.iw.dto.Usuarios;
 import co.edu.udea.iw.exception.MyDaoException;
 
@@ -43,6 +46,20 @@ public class ReservaBlImpTest {
 		Usuarios user=new Usuarios();
 		user.setCedula(777);
 		reservaDao.modificarReserva(id, Tiempo);
+	}
+	
+	@Test
+	public void testVerReservasPorInvest() throws MyDaoException{
+		int idInvest = 1012;
+		int idResponsable = 1039;
+		List<Reserva> resultado;
+		try{
+			resultado = reservaDao.verReservasPorInvest(idInvest, idResponsable);
+			assertTrue(resultado.size()>0);
+		}catch (MyDaoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
 
 }

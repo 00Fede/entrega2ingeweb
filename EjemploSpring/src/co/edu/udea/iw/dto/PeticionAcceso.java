@@ -24,7 +24,7 @@ public class PeticionAcceso {
 	private String email;
 	private Blob foto;
 	private String telefono;
-	private String estado;
+	private String estado = "pendiente";
 	private Usuarios admin;
 	private String justificacion;
 	
