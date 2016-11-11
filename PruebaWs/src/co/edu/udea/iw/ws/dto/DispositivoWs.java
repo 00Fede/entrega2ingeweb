@@ -1,6 +1,5 @@
 package co.edu.udea.iw.ws.dto;
 
-import java.sql.Blob;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -8,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class DispositivoWs {
 
 
-
+	private int id;
 	private String Nombre;
 	private String Modelo;
 	private String Descripcion;
@@ -16,7 +15,7 @@ public class DispositivoWs {
 	private String Observacion;
 	private String Estado;
 	private String Disponibilidad;
-	//private Blob foto;
+	private byte[] foto;
 	
 	public DispositivoWs() {
 		
@@ -34,6 +33,35 @@ public class DispositivoWs {
 		Disponibilidad = disponibilidad;
 		
 	}
+	
+	public DispositivoWs(String name, int id, byte[] foto){
+		this.Nombre = name;
+		this.id = id;
+		this.setFoto(foto);
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
 	public String getNombre() {
 		return Nombre;
 	}

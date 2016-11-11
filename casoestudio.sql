@@ -124,12 +124,12 @@ INSERT INTO usuarios VALUES (777,'Soy','Superusuario','supersu','5baa61e4c9b93f3
 
 INSERT INTO sancion VALUES (8899,333,1012,1039,'2016-10-20','limite de tiempo','72');
 
-INSERT INTO reserva VALUES (9988,333,1012,1039,'2016-10-18','72',0);
+INSERT INTO reserva VALUES (9988,333,1012,1039,'2016-10-18',NULL,'72',0);
 
 INSERT INTO peticion_acceso VALUES (1,333,'jacinto','perez','japerez','password',
 'cl 76S','japerez@correo.com','3ab4','3332548','pendiente',1020,'justificacion');
 
-INSERT INTO peticion_acceso VALUES (234,'patricio','esponja','paesp','password',
+INSERT INTO peticion_acceso VALUES (2, 234,'patricio','esponja','paesp','password',
 'roca','patri@correo.com','3ab4','4857955','rechazado',1039,'justificacion');
 
 INSERT INTO autenticacion VALUES (1,1039,2016-11-2);
