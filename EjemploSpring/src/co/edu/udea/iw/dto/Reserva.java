@@ -21,7 +21,20 @@ public class Reserva {
 	private Date Fecha_inicio;
 	private int Tiempo_reserva;
 	private int estado;
+	private Date fecha_entrega;
 	
+	/**
+	 * @return the fecha_entrega
+	 */
+	public Date getFecha_entrega() {
+		return fecha_entrega;
+	}
+	/**
+	 * @param fecha_entrega the fecha_entrega to set
+	 */
+	public void setFecha_entrega(Date fecha_entrega) {
+		this.fecha_entrega = fecha_entrega;
+	}
 	private int Id_reserva;
 	public int getId_reserva() {
 		return Id_reserva;

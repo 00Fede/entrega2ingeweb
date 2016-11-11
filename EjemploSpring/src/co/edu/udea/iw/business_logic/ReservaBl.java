@@ -68,4 +68,17 @@ public interface ReservaBl {
 	 */
 	public List<Reserva> verReservasPorInvest(int idInvest, int idResponsable) throws MyDaoException;
 	
+	/**
+	 * FRQ-0031 - Notificar Devolucion
+	 * Este metodo permite a un usuario administrar notificar o registrar la devolucion
+	 * de un dispositivo por parte de un investigar. El administrador debe definir  el estado 
+	 * en que se recibio el dispositivo. 
+	 * @param idReserva - reserva a ser notificada
+	 * @param idAdmin - administrador responsable
+	 * @param idInvest - investigador que hace la devolucion 
+	 * @param estado - estado de la reserva
+	 * @throws MyDaoException
+	 */
+	public void notificarDevolucion(int idReserva, int idAdmin, int estado) throws MyDaoException; 
+	
 }

@@ -56,10 +56,11 @@ public class ReservaDaoHibernate implements ReservaDao {
 		
 		
 		try{
-			session=sessionFactory.getCurrentSession();
+			session=sessionFactory.openSession();
 			Criteria crit=session.createCriteria(Reserva.class).add(Restrictions.eq("Id_reserva", id));
 			
 			resultado=(Reserva)crit.uniqueResult();
+			session.close();
 			
 		}catch(HibernateException e){
 			throw new MyDaoException(e);
@@ -106,13 +107,15 @@ public class ReservaDaoHibernate implements ReservaDao {
 	@Override
 	public void modificar(Reserva reserva) throws MyDaoException {
 		Session session = null;
-		
+		Transaction tx = null;
 
 
 		try {
-			session=sessionFactory.getCurrentSession();
 			
+			session=sessionFactory.openSession();
+			tx=session.beginTransaction();
 			session.update(reserva);
+			tx.commit();
 			
 
 		} catch (HibernateException e) {

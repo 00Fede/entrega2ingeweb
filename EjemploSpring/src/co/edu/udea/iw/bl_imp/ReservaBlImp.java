@@ -26,7 +26,6 @@ public class ReservaBlImp implements ReservaBl {
 
 	ReservaDao reservaDao;
 	UsuariosDao usuariosDao;
-	Validaciones validaciones = new Validaciones();
 	
 	/**
 	 * Constructor de la implementacion. Necesario para inyeccion Spring
@@ -166,6 +165,26 @@ public class ReservaBlImp implements ReservaBl {
 		return resultado;
 	}
 	
+	@Override
+	public void notificarDevolucion(int idReserva, int idAdmin, int estado) throws MyDaoException {
+		if(!isActiveUser(idAdmin)) throw new MyDaoException("No se encuentra activo para hacer esta solicitud", null);
+		if(!matchRol(idAdmin, "administrador")) throw new MyDaoException("No tiene permisos para realizar la operacion", null);
+		Reserva reservaNotificada = reservaDao.obtener(idReserva);
+		if(reservaNotificada==null) throw new MyDaoException("No exista reserva con id " + idReserva, null);
+		if(!isActiveUser(reservaNotificada.getId_cedula().getCedula())) throw new MyDaoException("Usuario investigador no se encuentra activo", null);
+		
+		if(estado<2||estado>6) throw new MyDaoException("El estado "+estado+" no es valido",null);
+		
+		Usuarios adminNotificador = usuariosDao.obtener(idAdmin);
+		
+		reservaNotificada.setEstado(estado);//nuevo estado de la reserva
+		reservaNotificada.setFecha_entrega(new Date()); //fecha entrega
+		reservaNotificada.setId_responsable(adminNotificador);//el nuevo responsable de la reserva
+		
+		reservaDao.modificar(reservaNotificada);
+	}
+
+	
 	/**
 	 * Revisa si el usuario con cedula idResponsable, es del rol rol
 	 * @param id
@@ -196,5 +215,6 @@ public class ReservaBlImp implements ReservaBl {
 		return true;
 	}
 
+	
 
 }

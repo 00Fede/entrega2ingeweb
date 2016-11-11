@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `reserva` (
   `id_cedula` int(12) NOT NULL,
   `id_responsable` int(12) NOT NULL,
   `fecha_inicio` date NOT NULL,
+	`fecha_entrega` date NULL,
   `tiempo_reserva` int(1) NOT NULL,
   `estado` int(1) NOT NULL,
   PRIMARY KEY (`id_reserva`),

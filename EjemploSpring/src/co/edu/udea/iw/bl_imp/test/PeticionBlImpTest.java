@@ -80,7 +80,7 @@ public class PeticionBlImpTest {
 	 */
 	@Test
 	public void testEvaluarPeticionDeAcceso() {
-		int idPeticion = 12;
+		int idPeticion = 13;
 		String estado = "rechazado";
 		int admin = 1039;
 		String justificacion = "Hola justificacion";

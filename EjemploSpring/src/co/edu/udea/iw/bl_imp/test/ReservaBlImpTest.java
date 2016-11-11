@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import co.edu.udea.iw.business_logic.ReservaBl;
 import co.edu.udea.iw.business_logic.UsuarioBl;
+import co.edu.udea.iw.dao.ReservaDao;
 import co.edu.udea.iw.dao.UsuariosDao;
 import co.edu.udea.iw.dto.Reserva;
 import co.edu.udea.iw.dto.Usuarios;
@@ -30,12 +31,14 @@ import co.edu.udea.iw.exception.MyDaoException;
 public class ReservaBlImpTest {
 
 	@Autowired
-	ReservaBl reservaDao;
+	ReservaBl reservaBl;
+	@Autowired
+	ReservaDao dao;
 	
 	@Test
 	public void testCancelarReserva() throws MyDaoException {
 		java.util.Date fechaActual = new java.util.Date();
-		reservaDao.cancelarReserva(102,fechaActual);
+		reservaBl.cancelarReserva(102,fechaActual);
 		
 	}
 
@@ -45,7 +48,7 @@ public class ReservaBlImpTest {
 		int Tiempo=5;
 		Usuarios user=new Usuarios();
 		user.setCedula(777);
-		reservaDao.modificarReserva(id, Tiempo);
+		reservaBl.modificarReserva(id, Tiempo);
 	}
 	
 	@Test
@@ -54,12 +57,30 @@ public class ReservaBlImpTest {
 		int idResponsable = 1039;
 		List<Reserva> resultado;
 		try{
-			resultado = reservaDao.verReservasPorInvest(idInvest, idResponsable);
+			resultado = reservaBl.verReservasPorInvest(idInvest, idResponsable);
 			assertTrue(resultado.size()>0);
 		}catch (MyDaoException e) {
 			e.printStackTrace();
 			fail(e.getMessage());
 		}
+	}
+	
+	@Test 
+	public void testNotificarDevolucion() throws MyDaoException{
+		int idPrestamo = 9988;
+		int idAdmin = 1039;
+		int estado = 2;
+		
+		try {
+			reservaBl.notificarDevolucion(idPrestamo, idAdmin, estado);
+			Reserva prestamoNotificado = dao.obtener(idPrestamo);
+			assertTrue(prestamoNotificado.getEstado()==estado);
+		} catch (MyDaoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+		
+		
 	}
 
 }

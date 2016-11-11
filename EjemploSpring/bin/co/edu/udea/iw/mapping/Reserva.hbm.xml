@@ -26,5 +26,8 @@
          <property name="estado" type="int">
             <column name="estado" length="1" />
         </property>
+        <property name="fecha_entrega" type="java.util.Date">
+        	<column name="fecha_entrega"></column>
+        </property>
     </class>
 </hibernate-mapping>
