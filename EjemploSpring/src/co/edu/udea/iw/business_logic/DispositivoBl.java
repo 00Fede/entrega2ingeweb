@@ -1,5 +1,6 @@
 package co.edu.udea.iw.business_logic;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -73,8 +74,23 @@ public interface DispositivoBl {
 	 * @param justificacion Razón de la modificación
 	 * @throws MyDaoException
 	 */
-	public void modificarDispositivo(int nroSerie, String nombre, String modelo, String peqDesc,
-			byte[] fotoRAW,String restriccion, String observacion, String justificacion) throws MyDaoException;
+	public void modificarDispositivo(int cedulaResponsable,int nroSerie, String nombre, String modelo, String peqDesc, byte[] fotoRAW,
+			String restriccion, String observacion,String estado, String disponibilidad) throws MyDaoException, SerialException, SQLException;
+	
+	
+	//public void RealizarPrestamoDispositivo(int cedulaResponsable,int nroSerie) throws MyDaoException, SerialException, SQLException;
+
+	
+	/**
+	 * FRQ-0001 - Realizar préstamo de un dispositivo
+	 *  permite a un administrador hacer un préstamo de un dispositivo a un investigador
+	 * @param cedulaResponsable obligatorio
+	 * @param nroSerie obligatorio
+	 * @param fechaInicio obligatorio
+	 * @param duracion obligatorio
+	 * @throws MyDaoException
+	 */
+	public void realizarPrestamoDispositivo(int cedulaResponsable,int cedulaI,int nroSerie,Date fechaInicio, int duracionhoras,int idReserva ) throws MyDaoException;
 	
 
 }
