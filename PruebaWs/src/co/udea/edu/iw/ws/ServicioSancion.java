@@ -109,21 +109,21 @@ public class ServicioSancion {
 	 * Se invoca de la siguiente forma 
 	 * http://localhost:8080/PruebaWs/rest/ServicioSancion/incumplimiento?id_sancion=26&id_reserva=9988
 	 */
-	@POST
-	@Produces(MediaType.TEXT_HTML)
-	@Path("incumplimiento")
-	public String generarSancion_incumplimientoReserva(@QueryParam("id_sancion")int id_sancion,
-			@QueryParam("id_reserva")int id_reserva) throws RemoteException{
+		@POST
+		@Produces(MediaType.TEXT_HTML)
+		@Path("incumplimiento")
+		public String generarSancion_incumplimientoReserva(@QueryParam("id_sancion")int id_sancion,
+				@QueryParam("id_reserva")int id_reserva) throws RemoteException{
+			
+			try{
+				java.util.Date fechaActual = new java.util.Date();
+				sancionBl.generarSancion_incumplimientoReserva(id_sancion, id_reserva, fechaActual);
+				return "La sancion se ha creado exitosamente";
+			}catch(MyDaoException e){
+				throw new RemoteException(e.getMessage(),e);
+			}
 		
-		try{
-			java.util.Date fechaActual = new java.util.Date();
-			sancionBl.generarSancion_incumplimientoReserva(id_sancion, id_reserva, fechaActual);
-			return "La sancion se ha creado exitosamente";
-		}catch(MyDaoException e){
-			throw new RemoteException(e.getMessage(),e);
 		}
-	
-	}
 	
 	
 	

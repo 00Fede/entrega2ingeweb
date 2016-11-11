@@ -46,7 +46,7 @@ public interface DispositivoBl {
 	 * @param observacion
 	 * @throws MyDaoException, {@link SQLException, SerialException}
 	 */
-	public void agregarDispositivo(int nroSerie, String nombre, String modelo, String peqDesc, byte[] fotoRAW,
+	public void agregarDispositivo(int cedulaResponsable,int nroSerie, String nombre, String modelo, String peqDesc, byte[] fotoRAW,
 			String restriccion, String observacion,String estado, String disponibilidad) throws MyDaoException, SerialException, SQLException;
 
 	/**
@@ -57,7 +57,7 @@ public interface DispositivoBl {
 	 * @param justificacion Razon de la eliminación
 	 * @throws MyDaoException
 	 */
-	public void eliminarDispositivoLogicamente(int nroSerie, String justificacion) throws MyDaoException;
+	public void eliminarDispositivoLogicamente(int cedulaResponsable,int nroSerie, String justificacion) throws MyDaoException;
 	
 	/**
 	 * FRQ-0025 - Modificar dispositivo

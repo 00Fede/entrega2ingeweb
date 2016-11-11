@@ -150,9 +150,9 @@ private SessionFactory sessionFactory;
 
 		try {
 			session = sessionFactory.openSession();
-			//tx = session.beginTransaction();
+			tx = session.beginTransaction();
 			session.update(dispositivo);
-			//tx.commit();
+			tx.commit();
 
 		} catch (HibernateException e) {
 			throw new MyDaoException(e);

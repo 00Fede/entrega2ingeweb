@@ -24,17 +24,18 @@ public class DispositivoBlImpTest {
 	public void testAgregarDispositivo() {
 		try {
 			
-			String nombre = "disp 1";
-			String modelo = "modelo1";
+			String nombre = "lampara";
+			String modelo = "19er";
 			String restriccion = "restriccion";
 			String observacion = "observacion";
 			String descripcion = "descripcion";
-			String estado = "estado";
+			String estado = "1";
 			String disponibilidad = "disponibilidad";					
 			byte[] fotodata = {'a','b'};
-			int nroSerie = 123;
+			int nroSerie = 888;
+			int cedulaResponsable = 1039;
 			
-			dispBl.agregarDispositivo(nroSerie, nombre, modelo,descripcion, fotodata, restriccion, observacion,estado,disponibilidad);
+			dispBl.agregarDispositivo(cedulaResponsable,nroSerie, nombre, modelo,descripcion, fotodata, restriccion, observacion,estado,disponibilidad);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -56,7 +57,20 @@ public class DispositivoBlImpTest {
 		try {
 			List<Dispositivos> dispPorModelo;
 			dispPorModelo = dispBl.verDispositivosDisponiblesPorModelo();
-			assertTrue(dispPorModelo.size() >= 2 );
+			assertTrue(dispPorModelo.size() == 0 );
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testEliminarDispositivoLogicamente() {
+		try {
+			int nroSerie = 777;
+			int cedulaResponsable = 1039;
+			String justificacion = "el dispositivo se rompio";
+			dispBl.eliminarDispositivoLogicamente(cedulaResponsable, nroSerie, justificacion);
+			
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
