@@ -64,6 +64,8 @@ CREATE TABLE IF NOT EXISTS `autenticacion` (
   PRIMARY KEY (`id_autenticacion`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11;
 
+
+
 CREATE TABLE IF NOT EXISTS `peticion_acceso`(
 `id_peticion` int(12) NOT NULL AUTO_INCREMENT,
 `cedula` int(12) NOT NULL,
@@ -124,4 +126,6 @@ INSERT INTO peticion_acceso VALUES (1,333,'jacinto','perez','japerez','password'
 
 INSERT INTO peticion_acceso VALUES (234,'patricio','esponja','paesp','password',
 'roca','patri@correo.com','3ab4','4857955','rechazado',1039,'justificacion');
+
+INSERT INTO autenticacion VALUES (1,1039,2016-11-2);
 
