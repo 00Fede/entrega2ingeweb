@@ -109,6 +109,10 @@ VALUES (552,'generador de ondas','OND123','genera ondaz 10-100hz','No usar cerca
 
 INSERT INTO usuarios VALUES (1039,'Federico','Ocampo Ortiz','fedo','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8',
 'administrador','direccion1','federico@laboratorio.com','3ab4','4440238','activo');
+INSERT INTO usuarios VALUES (1040,'Nombre1','apellido2','nomape','5bagfda61e4c9b93f3f0682250b6cf8331b7ee68fd8',
+'investigador','direccion1','otromail@laboratorio.com','3ab4','443242','activo');
+INSERT INTO usuarios VALUES (1041,'Nombre2','apellido3','nomape1','5bagfdgfda61e4c9b93f3f0682250b6cf8331b7ee68fd8',
+'investigador','direccion1','otromail1@laboratorio.com','3ab4','44342355','activo');
 INSERT INTO usuarios VALUES (1010,'Andres','Felipe','anfe','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8',
 'investigador','direccion2','andres@laboratorio.com','3ab4','4440239','activo');
 INSERT INTO usuarios VALUES (1020,'Daniel','Dtorre','dtorre99','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8',

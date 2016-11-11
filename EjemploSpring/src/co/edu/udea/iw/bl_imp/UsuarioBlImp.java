@@ -129,14 +129,14 @@ public class UsuarioBlImp implements UsuarioBl {
 		if (!userResponsable.getRol().equals("superusuario")) {
 			throw new MyDaoException("No tiene permisos para hacer esta transaccion", null);
 		}
-
-		if (userDao.obtener(idUsuario).getRol() != "administrador") {
+		Usuarios olduser = userDao.obtener(idUsuario);
+		if (!olduser.getRol().equals("administrador")) {
 			throw new MyDaoException("El usuario a eliminar no es administrador", null);
 		}
 		if (justificacion.equals(null) || "".equals(justificacion.trim())) {
 			throw new MyDaoException("Debe ingresar una justificacion", null);
 		}
-		Usuarios olduser = userDao.obtener(idUsuario);
+		
 		olduser.setEstado("inactivo"); // eliminado logico
 		userDao.modificar(olduser);
 	}
@@ -158,23 +158,25 @@ public class UsuarioBlImp implements UsuarioBl {
 		if (existeEmail(nuevoCorreo)) {
 			throw new MyDaoException("El correo electronico ingresado ya existe", null);
 		}
-		Usuarios updatedUser = new Usuarios();
-		updatedUser.setCedula(idUsuario);
-		if (!"".equals(nuevaContrasena.trim()) || nuevaContrasena != null) {
+		
+		
+		Usuarios updatedUser = userDao.obtener(idUsuario);
+		if (nuevaContrasena != null) {
+			System.out.println("contraseña actualizada: " + nuevaContrasena);
+			if (nuevaContrasena.length() < 6 || "".equals(nuevaContrasena.trim())) {
+				throw new MyDaoException("La contrase��a debe contener almenos 6 caracteres", null);
+			}
 			Cifrar c = new Cifrar();
 			updatedUser.setContrasena(c.encrypt(nuevaContrasena));
 		}
-		if (!"".equals(nuevoCorreo.trim()) || nuevoCorreo != null) {
-			updatedUser.setEmail(nuevoCorreo);
+		if (nuevoCorreo != null) {
+			if(!"".equals(nuevoCorreo.trim())) updatedUser.setEmail(nuevoCorreo);
 		}
-		if (!"".equals(nuevoTelefono.trim()) || nuevoTelefono != null) {
-			updatedUser.setTelefono(nuevoTelefono);
+		if (nuevoTelefono != null) {
+			if(!"".equals(nuevoTelefono.trim())) updatedUser.setTelefono(nuevoTelefono);
 		}
-		if (!"".equals(nuevaDireccion.trim()) || nuevaDireccion != null) {
-			updatedUser.setDireccion(nuevaDireccion);
-		}
-		if (nuevaContrasena.length() <= 6) {
-			updatedUser.setContrasena(nuevaContrasena);
+		if (nuevaDireccion != null) {
+			if(!"".equals(nuevaDireccion.trim())) updatedUser.setDireccion(nuevaDireccion);
 		}
 
 		userDao.modificar(updatedUser);
@@ -325,6 +327,9 @@ public class UsuarioBlImp implements UsuarioBl {
 		if (!userExist(idResponsable)) {
 			throw new MyDaoException("El usuario responsable no existe", null);
 		}
+		if (!isActiveUser(idResponsable)) {
+			throw new MyDaoException("No se encuentra activo para hacer esta transacci��n", null);
+		}
 		if (idUsuario == 0) {
 			throw new MyDaoException("Debe especificar cedula de usuario.", null);
 		}
@@ -333,9 +338,6 @@ public class UsuarioBlImp implements UsuarioBl {
 		}
 		if (!isActiveUser(idUsuario)) {
 			throw new MyDaoException("El usuario ya fue eliminado", null);
-		}
-		if (!isActiveUser(idResponsable)) {
-			throw new MyDaoException("No se encuentra activo para hacer esta transacci��n", null);
 		}
 		if (!matchRol(idResponsable, "administrador")) {
 			throw new MyDaoException("No tiene permisos para hacer esta transaccion", null);
@@ -430,9 +432,7 @@ public class UsuarioBlImp implements UsuarioBl {
 		if(authDao.obtener().getId()!=cedula){
 			throw new MyDaoException("Su sesion no esta abierta",null);
 		}
-		Autenticacion a = new Autenticacion();
-		a.setId(cedula);
-		authDao.eliminar(a);
+		authDao.eliminar(authDao.obtener()); //elimina la unica instancia de autenticacion que debe haber
 	}
 
 	@Override

@@ -50,8 +50,8 @@ public class UsuarioBlImpTest {
 	@Test
 	public void testEliminarAdministrador(){
 		int idResponsable = 777;
-		int idUsuario = 1012;
-		String justificacion = "";
+		int idUsuario = 2230;
+		String justificacion = "bla bla bla";
 		
 		try {
 			userBl.eliminarAdministrador(idResponsable, idUsuario, justificacion);
@@ -129,6 +129,20 @@ public class UsuarioBlImpTest {
 			fail(e.getMessage());
 		}
 				
+	}
+	
+	@Test
+	public void testActualizarUser(){
+		int idactor = 1020;
+		int id = 1020;
+		String correo = "nuevocorreito@une.co";
+		try {
+			userBl.actualizarInformacion(idactor, id, null, correo, null, null, null);
+		} catch (MyDaoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+		
 	}
 	
 

@@ -37,7 +37,7 @@ public class ReservaDaoHibernate implements ReservaDao {
 		Session session=null;
 		
 		try{
-			session=sessionFactory.getCurrentSession();
+			session=sessionFactory.openSession();
 			Criteria crit=session.createCriteria(Reserva.class);
 			
 			resultado=crit.list();
@@ -75,7 +75,7 @@ public class ReservaDaoHibernate implements ReservaDao {
 		Session session=null;
 		
 		try{
-			session=sessionFactory.getCurrentSession();
+			session=sessionFactory.openSession();
 			session.save(reserva);
 			
 		}catch(HibernateException e){
@@ -96,7 +96,7 @@ public class ReservaDaoHibernate implements ReservaDao {
 		
 		
 		try{
-			session=sessionFactory.getCurrentSession();
+			session=sessionFactory.openSession();
 			session.delete(reserva);
 			
 		}catch(HibernateException e){

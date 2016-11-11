@@ -48,7 +48,7 @@ public class UsuarioDaoHibernateTest {
 	public void testObtenerInt() {
 		
 		Usuarios usuarios;
-		int cedula=1010;
+		int cedula=2230;
 		
 		try{
 			usuarios=dao.obtener(cedula);
