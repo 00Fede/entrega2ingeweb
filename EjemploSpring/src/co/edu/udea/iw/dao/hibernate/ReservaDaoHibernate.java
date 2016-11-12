@@ -73,10 +73,13 @@ public class ReservaDaoHibernate implements ReservaDao {
 	public void guardar(Reserva reserva) throws MyDaoException {
 		
 		Session session=null;
+		Transaction tx = null;
 		
 		try{
 			session=sessionFactory.openSession();
+			tx = session.beginTransaction();
 			session.save(reserva);
+			tx.commit();
 			
 		}catch(HibernateException e){
 			throw new MyDaoException(e);
@@ -93,7 +96,6 @@ public class ReservaDaoHibernate implements ReservaDao {
 		Session session=null;
 		Reserva reserva=new Reserva();
 		reserva.setId_reserva(id);
-		
 		
 		try{
 			session=sessionFactory.openSession();

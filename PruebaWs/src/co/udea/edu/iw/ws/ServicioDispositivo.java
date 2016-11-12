@@ -43,12 +43,12 @@ public class ServicioDispositivo {
 	@Autowired
 	DispositivoBl dispositivoBl;
 
-	/**
+	/**FRQ-0003 - Ver todos los dispositivos
 	 * Servicio encargado de obtener  todos los dispositivos agrupados por modelos
-	 * Link de muestra:
-	 * http://localhost:8080/PruebaWs/rest/servicioDispositivo/todosLosDispositivos
+	 * @return listado de todos los dispositivos agrupados por modelo
+	 * @throws RemoteException
+	 * link: http://localhost:8080/PruebaWs/rest/servicioDispositivo/todosLosDispositivos
 	 **/
-
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("todosLosDispositivos")
@@ -73,9 +73,12 @@ public class ServicioDispositivo {
 	}
 
 	/**
-	 * 
-	 * Link de muestra:
-	 * http://localhost:8080/PruebaWs/rest/servicioDispositivo/dispositivosDisponiblesPorModelo
+	 * FRQ-0003 - Ver todos los dispositivos disponibles 
+	 * Servicio que Permite al usuario visualizar todos los dispositivos disponibles 
+	 * agrupados por modelo
+	 * @return Lista de dispositivos agrupados por modelo
+	 * @throws MyDaoException
+	 * Link de muestra: http://localhost:8080/PruebaWs/rest/servicioDispositivo/dispositivosDisponiblesPorModelo
 	 **/
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -101,13 +104,21 @@ public class ServicioDispositivo {
 	}
 
 	/**
-	 * 
-	 Link de muestra:
-	 http://localhost:8080/PruebaWs/rest/servicioDispositivo/agregarDispositivo?cedResp=1010&nroSerie=1
-	 &nombre=linterna&modelo=1.5g&peqDesc=una_muy_buena_linterna&restriccion=no_dejar_caer&
-	 observacion=nuevas_pilas&estado=0&disponibilidad=1
+	 * FRQ-0004 - Agregar Dispositivo
+	 * Servicio que Permite a un usuario administrador crear un dispositivo
+	 * @param nroSerie 
+	 * @param nombre 
+	 * @param modelo 
+	 * @param peqDesc
+	 * @param fotoRAW
+	 * @param restriccion
+	 * @param observacion
+	 * @throws MyDaoException,SQLException,SerialException
+	 * Link de muestra:
+	 	http://localhost:8080/PruebaWs/rest/servicioDispositivo/agregarDispositivo?cedResp=1010&nroSerie=1
+	 	&nombre=linterna&modelo=1.5g&peqDesc=una_muy_buena_linterna&restriccion=no_dejar_caer&
+	 	observacion=nuevas_pilas&estado=0&disponibilidad=1
 	 **/
-
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Path("agregarDispositivo")
@@ -130,11 +141,15 @@ public class ServicioDispositivo {
 	}
 
 	/**
-	 * 
-	 * Link de muestra:
+	 * FRQ-0005 - Eliminar dispositivo
+	 * Servicio que Permite al usuario administrador eliminar un dispositivo
+	 * @param nroSerie
+	 * @param cedulaResponsable
+	 * @param justificacion Razon de la eliminación
+	 * @throws MyDaoException
+	 *  Link de muestra:
 	 * http://localhost:8080/PruebaWs/rest/servicioDispositivo/eliminarDispositivoLogicamente?cedulaResponsable=1039&nroSerie=777&justificacion=se_fracturo
-	 **/
-
+	 */
 	@PUT
 	@Produces(MediaType.TEXT_HTML)
 	@Path("eliminarDispositivoLogicamente")
@@ -151,6 +166,23 @@ public class ServicioDispositivo {
 		}
 	}
 	
+	/**
+	 * Servicio Web para FRQ-0025 Modificar dispositivo
+	 * Este servicio permite la modificacion de un dispositivo.
+	 * @param cedResp
+	 * @param nroSerie
+	 * @param nombre
+	 * @param modelo
+	 * @param peqDesc
+	 * @param restriccion
+	 * @param observacion
+	 * @param estado
+	 * @param disponibilidad
+	 * @return
+	 * @throws RemoteException
+	 * @throws SerialException
+	 * @throws SQLException
+	 */
 	@PUT
 	@Produces(MediaType.TEXT_HTML)
 	@Path("modificarDispositivo")

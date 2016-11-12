@@ -2,8 +2,14 @@ package co.edu.udea.iw.bl_imp.test;
 
 import static org.junit.Assert.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,6 +110,27 @@ public class ReservaBlImpTest {
 			resultado = reservaBl.prestamosPorDispositivos(nroSerie, idResponsable);
 			assertTrue(resultado.size()==1);
 		}catch (MyDaoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testCrearReserva() throws MyDaoException, ParseException{
+		int idInv = 1040;
+		int idDev = 333;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaEntrega = formatter.parse("2016-11-27");
+		
+		int tiempoPrestamo = 24;
+		
+		try {
+			reservaBl.crearReserva(idInv, idDev, tiempoPrestamo, fechaEntrega);
+			Iterator<Reserva> i = dao.obtener().iterator();
+			while(i.hasNext()){
+				if (i.next().getId_cedula().getCedula()==idInv) assertTrue(true);
+			}
+		} catch (MyDaoException e) {
 			e.printStackTrace();
 			fail(e.getMessage());
 		}

@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `dispositivo` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11;
 
 CREATE TABLE IF NOT EXISTS `reserva` (
-  `id_reserva` int (12) NOT NULL,
+  `id_reserva` int (12) NOT NULL AUTO_INCREMENT,
   `id_disp` int(12) NOT NULL,
   `id_cedula` int(12) NOT NULL,
   `id_responsable` int(12) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `reserva` (
   FOREIGN KEY (`id_cedula`) REFERENCES usuarios(cedula),
   FOREIGN KEY (`id_responsable`) REFERENCES usuarios(cedula)
 
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20;
 
 CREATE TABLE IF NOT EXISTS `sancion` (
   `id_sancion` int(12) NOT NULL,
@@ -90,22 +90,22 @@ FOREIGN KEY (`admin`) REFERENCES usuarios(cedula)
 INSERT INTO dispositivo(`numero_unico_serie`,`nombre`,`modelo`,`descripcion`,
 `restriccion`,`observaciones`,`estado`,`foto`,`disponibilidad`)
 VALUES (123,'rayos x','RCT54','Lector de rayos x','no sacar de la instalacion',
-'ninguno observacion','PRESTADO','c48b','Media');
+'ninguno observacion','2','c48b','Media');
 
 INSERT INTO dispositivo(`numero_unico_serie`,`nombre`,`modelo`,`descripcion`,
 `restriccion`,`observaciones`,`estado`,`foto`,`disponibilidad`)
 VALUES (333,'espectometro','UCUQ2','Mide espectro','no sacar de la instalacion',
-'Tratar con cuidado','DISPONIBLE','c48b','alta');
+'Tratar con cuidado','1','c48b','alta');
 
 INSERT INTO dispositivo(`numero_unico_serie`,`nombre`,`modelo`,`descripcion`,
 `restriccion`,`observaciones`,`estado`,`foto`,`disponibilidad`)
 VALUES (555,'generador de ondas','OND123','genera ondaz 10-100hz','No usar cerca a otros generadores',
-'utilizar protecto','AGOTADO','c48b','baja');
+'utilizar protecto','2','c48b','baja');
 
 INSERT INTO dispositivo(`numero_unico_serie`,`nombre`,`modelo`,`descripcion`,
 `restriccion`,`observaciones`,`estado`,`foto`,`disponibilidad`)
 VALUES (552,'generador de ondas','OND123','genera ondaz 10-100hz','No usar cerca a otros generadores',
-'utilizar protecto','AGOTADO','c48b','baja');
+'utilizar protecto','0','c48b','baja');
 
 INSERT INTO usuarios VALUES (1039,'Federico','Ocampo Ortiz','fedo','5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8',
 'administrador','direccion1','federico@laboratorio.com','3ab4','4440238','activo');
@@ -132,5 +132,5 @@ INSERT INTO peticion_acceso VALUES (1,333,'jacinto','perez','japerez','password'
 INSERT INTO peticion_acceso VALUES (2, 234,'patricio','esponja','paesp','password',
 'roca','patri@correo.com','3ab4','4857955','rechazado',1039,'justificacion');
 
-INSERT INTO autenticacion VALUES (1,1039,2016-11-2);
+INSERT INTO autenticacion VALUES (1,1039,'2016-11-27');
 

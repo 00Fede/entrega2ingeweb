@@ -34,7 +34,7 @@ public class DispositivoBlImpTest {
 			String disponibilidad = "disponibilidad";
 			byte[] fotodata = { 'c', 'd' };
 			int nroSerie = 111;
-			int cedulaResponsable = 1010;
+			int cedulaResponsable = 1039;
 
 			dispBl.agregarDispositivo(cedulaResponsable, nroSerie, nombre, modelo, descripcion, fotodata, restriccion,
 					observacion, estado, disponibilidad);

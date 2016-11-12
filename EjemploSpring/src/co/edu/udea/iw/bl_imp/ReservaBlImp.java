@@ -10,10 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.udea.iw.business_logic.ReservaBl;
 import co.edu.udea.iw.dao.AuthDao;
+import co.edu.udea.iw.dao.DispositivosDao;
 import co.edu.udea.iw.dao.ReservaDao;
+import co.edu.udea.iw.dao.SancionDao;
 import co.edu.udea.iw.dao.UsuariosDao;
 import co.edu.udea.iw.dto.Autenticacion;
+import co.edu.udea.iw.dto.Dispositivos;
 import co.edu.udea.iw.dto.Reserva;
+import co.edu.udea.iw.dto.Sancion;
 import co.edu.udea.iw.dto.Usuarios;
 import co.edu.udea.iw.exception.MyDaoException;
 import co.edu.udea.iw.util.validations.Validaciones;
@@ -29,16 +33,20 @@ public class ReservaBlImp implements ReservaBl {
 
 	ReservaDao reservaDao;
 	UsuariosDao usuariosDao;
+	SancionDao sancionDao;
+	DispositivosDao dispDao;
 	AuthDao auth;
 	
 	/**
 	 * Constructor de la implementacion. Necesario para inyeccion Spring
 	 * @param reservaDao
 	 */
-	public  ReservaBlImp(ReservaDao reservaDao, UsuariosDao userDao, AuthDao authDao) {
+	public  ReservaBlImp(ReservaDao reservaDao, UsuariosDao userDao, AuthDao authDao, SancionDao sancionDao, DispositivosDao dispDao) {
 		this.reservaDao = reservaDao;
 		this.usuariosDao = userDao;
 		this.auth = authDao;
+		this.sancionDao = sancionDao;
+		this.dispDao = dispDao;
 	}
 	
 	@Override
@@ -216,6 +224,43 @@ public class ReservaBlImp implements ReservaBl {
 		
 		reservaDao.modificar(reserva);
 	}
+	
+	@Override
+	public void crearReserva(int idInvest, int idDisp, int tiempo, Date fechaEntrega)
+			throws MyDaoException {
+		if(auth.obtener()==null) throw new MyDaoException("Se ha cerrado su sesion, vuelva a loguearse para continuar",null);
+		int idAdmin = auth.obtener().getId();
+		if(!matchRol(idAdmin, "administrador")) throw new MyDaoException("No tiene permiso para realizar esta operacion",null);
+		if(!matchRol(idInvest, "investigador")) throw new MyDaoException("Debe ser investigador para hacer una reserva",null);
+		if(!isActiveUser(idInvest)) throw new MyDaoException("El investigador no es un usuario activo", null);
+		
+		if(hasActiveReserves(idInvest)) throw new MyDaoException("El investigador tiene reservas activas",null);
+		if(hasActiveSanctions(idInvest)) throw new MyDaoException("El investigador tiene sanciones vigentes",null);
+		
+		if(dispDao.obtener(idDisp)==null) throw new MyDaoException("El dispositivo no existe",null);
+		
+		if(!"1".equals(dispDao.obtener(idDisp).getEstado())) throw new MyDaoException("El dispositivo no se encuentra disponible"
+				+ ", estado " +dispDao.obtener(idDisp).getEstado(),null);
+		
+		if(fechaEntrega.before(new Date())) throw new MyDaoException("La fecha de entrega ya paso",null);
+		
+		Reserva reserva = new Reserva();
+		reserva.setId_cedula(usuariosDao.obtener(idInvest));
+		reserva.setId_dispositivo(dispDao.obtener(idDisp));
+		reserva.setId_responsable(usuariosDao.obtener(idAdmin));
+		reserva.setTiempo_reserva(tiempo);
+		reserva.setFecha_inicio(new Date());
+		reserva.setFecha_entrega(fechaEntrega);
+		reserva.setEstado(0);
+		
+		Dispositivos d = dispDao.obtener(idDisp);
+		d.setEstado("0");//dispositivo no disponible
+		dispDao.modificar(d);
+		
+		reservaDao.guardar(reserva);
+		
+		
+	}
 
 	
 	/**
@@ -248,6 +293,42 @@ public class ReservaBlImp implements ReservaBl {
 		return true;
 	}
 	
+	/**
+	 * Revisa si el usuario del id tiene reservas asociadas
+	 * 
+	 * @param id
+	 * @return true si tiene reservas asociadas, false en caso contrario
+	 * @throws MyDaoException
+	 */
+	private boolean hasActiveReserves(int id) throws MyDaoException {
+		List<Reserva> r = reservaDao.obtener();
+		Iterator<Reserva> i = r.iterator();
+		while (i.hasNext()) {
+			if (i.next().getId_cedula().getCedula() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Revisa si el usuario del id tiene sanciones asociadas
+	 * 
+	 * @param id
+	 * @return true si tiene sanciones asociadas, false en caso contrario
+	 * @throws MyDaoException
+	 */
+	private boolean hasActiveSanctions(int id) throws MyDaoException {
+		List<Sancion> s = sancionDao.obtener();
+		Iterator<Sancion> i = s.iterator();
+		while (i.hasNext()) {
+			if (i.next().getId_cedula().getCedula() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	@Override
 	public List<Reserva> prestamosPorDispositivos(int nroSerie, int idResponsable)
@@ -269,6 +350,8 @@ public class ReservaBlImp implements ReservaBl {
 		}
 		return resultado;
 	}
+
+	
 
 	
 

@@ -2,12 +2,15 @@ package co.udea.edu.iw.ws;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -253,5 +256,34 @@ public class ServicioReserva {
 			throw new RemoteException(e.getMessage(),e);
 		}
 		return reservas;		
+	}
+	
+	/**
+	 * Servicio web para FRQ-00009 - Reservar Dispositivo
+	 * Este servicio web permite la creacion de una nueva reserva. Solo los administradores pueden acceder a esta
+	 * funcionalidad, esto se verifica con la sesion abierta en el sistema. Se debe ingresar el id del investigador, dispo
+	 * sitivo, tiempo del prestamo y la fecha en que se va hacer el prestamo. Se valida que el investigador no tenga
+	 * sanciones ni reservas asociadas, y que el dispositivo se encuentre disponible
+	 * @param idInv investigador
+	 * @param idDev dispositivo
+	 * @param fechaEntrega fecha entrega en formato yyyy-MM-dd
+	 * @param tiempo Tiempo en horas del prestamo
+	 * @return Mensaje de operacion exitosa
+	 * @throws RemoteException
+	 * @throws ParseException Por pasar de String a Date
+	 * url ejemplo: http://localhost:8080/PruebaWs/rest/ServicioReserva/crearReserva?idInv=1010&idDev=555&fecha=2016-11-24&tiempo=48
+	 */
+	@POST
+	@Path("crearReserva")
+	@Produces(MediaType.TEXT_HTML)
+	public String crearReserva(@QueryParam("idInv")int idInv,@QueryParam("idDev")int idDev,
+			@QueryParam("fecha")String fechaEntrega,@QueryParam("tiempo")int tiempo) throws RemoteException, ParseException{
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			reservaBl.crearReserva(idInv, idDev, tiempo, formatter.parse(fechaEntrega));
+		} catch (MyDaoException e) {
+			throw new RemoteException(e.getMessage(),e);
+		}
+		return "Reserva creada correctamente";
 	}
 }

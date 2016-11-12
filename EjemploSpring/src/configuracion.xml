@@ -107,6 +107,8 @@
 		<constructor-arg name="reservaDao" ref="reservaDao"></constructor-arg>
 		<constructor-arg name="userDao" ref="usuariosDao"></constructor-arg>
 		<constructor-arg name="authDao" ref="authDao"></constructor-arg>
+		<constructor-arg name="sancionDao" ref="sancionDao"></constructor-arg>
+		<constructor-arg name="dispDao" ref="dispositivoDao"></constructor-arg>
 	</bean>
 	
 	<bean id="sancionBl" class="co.edu.udea.iw.bl_imp.SancionBlImp">

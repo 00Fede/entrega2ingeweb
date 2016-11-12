@@ -72,7 +72,7 @@ public interface ReservaBl {
 	 * asociadas a un determinado investigador.
 	 * @param idResponsable - Administrador que llama el metodo
 	 * @param idInvest - Investigador al cual se le va a hacer la consulta
-	 * @return Lista de dispositivos asociados a investigador.
+	 * @return Lista de reservas asociados a investigador.
 	 * @throws MyDaoException
 	 */
 	public List<Reserva> verReservasPorInvest(int idInvest, int idResponsable) throws MyDaoException;
@@ -90,8 +90,29 @@ public interface ReservaBl {
 	 */
 	public void notificarDevolucion(int idReserva, int idAdmin, int estado) throws MyDaoException; 
 	
-	
+	/**
+	 * FRQ-0029 - Ver historial de prestamos por dispositivo
+	 * Este metodo permite a un usuario tipo Administrador, ver un listado de las reservas
+	 * asociadas a un determinado dispositivo.
+	 * @param idInvest - Investigador al cual se le va a hacer la consulta
+	 * @param nroSerie - id de dispositivo a filtrar
+	 * @return Lista de reservas asociadas a dispositivo
+	 * @throws MyDaoException
+	 */
 	public List<Reserva> prestamosPorDispositivos(int idInvest, int nroSerie) throws MyDaoException;
+	
+	/**
+	 * FRQ-0009 - Reservar Dispositivo
+	 * Este metodo permite que un administrador genere una reserva a un investigador de un determinado
+	 * dispositivo una fecha dada y por un tiempo escogido. El pensado es que no se requiera administrador,
+	 * pero es mas por aspectos de seguridad. El administrador es tomado de la sesion iniciada.
+	 * @param idInvest - investigador
+	 * @param idDisp - dispositivo
+	 * @param tiempo - tiempo del prestamo EN HORAS
+	 * @param fechaEntrega - fecha en que se va a hacer el prestamo
+	 * @throws MyDaoException
+	 */
+	public void crearReserva(int idInvest, int idDisp,int tiempo, Date fechaEntrega) throws MyDaoException;
 	
 	
 }
