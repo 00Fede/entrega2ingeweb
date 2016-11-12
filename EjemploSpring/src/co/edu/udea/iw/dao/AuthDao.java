@@ -5,7 +5,7 @@ import co.edu.udea.iw.exception.MyDaoException;
 
 /**
  * Define los metodos para acceder a Autenticacion en bd
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  *
  */
 public interface AuthDao {

@@ -19,7 +19,7 @@ import co.edu.udea.iw.dto.Usuarios;
 import co.edu.udea.iw.exception.MyDaoException;
 
 /**
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  * Implementacion de la interfaz PeticionDao
  * @see PeticionDao
  */

@@ -29,7 +29,7 @@ import co.edu.udea.iw.ws.dto.PeticionWs;
 import co.edu.udea.iw.ws.dto.UsuarioWs;
 
 /**
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  * Servlet encargado de manejar la funcionalidad de las peticiones desde
  * los servicios web proveidos
  */
@@ -57,6 +57,7 @@ public class ServicioPeticion {
 	 * @throws RemoteException
 	 * @throws SerialException Por la insercion de foto
 	 * @throws SQLException Por la insercion de foto
+	 * url ejemplo: http://localhost:8080/PruebaWs/rest/ServicioPeticion/generar/?ced=4425&username=olafo&name=Olaf&ape=vikin&pass=olafoelmejor&email=olafo@dhupyu.com&foto=foto foto foto&phone=4564564&dir=Noruega
 	 */
 	@POST
 	@Path("generar")
@@ -85,6 +86,7 @@ public class ServicioPeticion {
 	 * @return Lista de peticiones de acceso
 	 * @throws RemoteException
 	 * @throws SQLException por el procesamiento de la imagen
+	 * url ejemplo: http://localhost:8080/PruebaWs/rest/ServicioPeticion/peticiones
 	 */
 	@GET
 	@Path("peticiones")
@@ -117,7 +119,18 @@ public class ServicioPeticion {
 		}
 		return resultados;
 	}
-	
+	/**
+	 * Servicio Web para FRQ-0013 Evaluar peticion de acceso
+	 * Este servicio permite la evaluacion de una peticion de acceso registrada en el sistema
+	 * el administrador debe agregar el estado y la debida justificacion de su evaluacion
+	 * @param idPeticion
+	 * @param idAdmin
+	 * @param estado - aprobado o rechazado
+	 * @param justificacion - justificacion de la decision
+	 * @return Mensaje de operacion exitosa
+	 * @throws RemoteException
+	 * url ejemplo: http://localhost:8080/PruebaWs/rest/ServicioPeticion/evaluar?id=11&estado=aprobado&admin=1039&just=que quieres de justificacion
+	 */
 	@PUT
 	@Path("evaluar")
 	@Produces(MediaType.TEXT_HTML)

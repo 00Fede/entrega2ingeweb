@@ -20,7 +20,7 @@ import co.edu.udea.iw.dao.PeticionDao;
 import co.edu.udea.iw.exception.MyDaoException;
 
 /**
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)

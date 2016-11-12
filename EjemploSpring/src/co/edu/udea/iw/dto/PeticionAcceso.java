@@ -6,7 +6,7 @@ package co.edu.udea.iw.dto;
 import java.sql.Blob;
 
 /**
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  * Esta clase sera la clase pojo o dto, relacionoada 
  * con la entidad llamada PeticionAcceso, ademas de esto en esta
  * clase se definen los atributos necesarios para poder 

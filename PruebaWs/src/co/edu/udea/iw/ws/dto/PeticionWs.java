@@ -8,7 +8,7 @@ import java.sql.Blob;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  * Esta entidad tipo POJO hace posible representar las entidades de la base
  * de datos en objetos JSON, ademas puede modificarse para solo obtener los valores
  * necesarios por la peticion web realizada

@@ -21,7 +21,7 @@ import co.edu.udea.iw.util.encode.Cifrar;
 import co.edu.udea.iw.util.validations.Validaciones;
 
 /**
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  *	@see co.edu.udea.iw.business_logic.PeticionBl
  */
 public class PeticionBlImp implements PeticionBl {

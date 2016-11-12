@@ -12,7 +12,7 @@ import co.edu.udea.iw.exception.MyDaoException;
 /**
  * Metodos que garantizan la logica del negocio
  * en la interacción con el dispositivo
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  *
  */
 public interface DispositivoBl {

@@ -8,7 +8,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  * POJO Mapping de Jersey para mostrar entidades en formato JSON
  */
 @XmlRootElement

@@ -29,7 +29,7 @@ import co.edu.udea.iw.ws.dto.UsuarioWs;
 /**
  * Clase que respondera a todas las peticiones web realizadas
  * relacionadas con los usuarios
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  *
  */
 

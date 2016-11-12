@@ -26,7 +26,7 @@ import co.edu.udea.iw.util.validations.Validaciones;
 
 /**
  * @see UsuarioBlImp
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  *
  */
 public class UsuarioBlImp implements UsuarioBl {
@@ -136,12 +136,10 @@ public class UsuarioBlImp implements UsuarioBl {
 		if (justificacion.equals(null) || "".equals(justificacion.trim())) {
 			throw new MyDaoException("Debe ingresar una justificacion", null);
 		}
-		
+
 		olduser.setEstado("inactivo"); // eliminado logico
 		userDao.modificar(olduser);
 	}
-
-	
 
 	@Override
 	public void actualizarInformacion(int idResponsable, int idUsuario, String nuevaContrasena, String nuevoCorreo,
@@ -158,8 +156,7 @@ public class UsuarioBlImp implements UsuarioBl {
 		if (existeEmail(nuevoCorreo)) {
 			throw new MyDaoException("El correo electronico ingresado ya existe", null);
 		}
-		
-		
+
 		Usuarios updatedUser = userDao.obtener(idUsuario);
 		if (nuevaContrasena != null) {
 			System.out.println("contraseña actualizada: " + nuevaContrasena);
@@ -170,13 +167,16 @@ public class UsuarioBlImp implements UsuarioBl {
 			updatedUser.setContrasena(c.encrypt(nuevaContrasena));
 		}
 		if (nuevoCorreo != null) {
-			if(!"".equals(nuevoCorreo.trim())) updatedUser.setEmail(nuevoCorreo);
+			if (!"".equals(nuevoCorreo.trim()))
+				updatedUser.setEmail(nuevoCorreo);
 		}
 		if (nuevoTelefono != null) {
-			if(!"".equals(nuevoTelefono.trim())) updatedUser.setTelefono(nuevoTelefono);
+			if (!"".equals(nuevoTelefono.trim()))
+				updatedUser.setTelefono(nuevoTelefono);
 		}
 		if (nuevaDireccion != null) {
-			if(!"".equals(nuevaDireccion.trim())) updatedUser.setDireccion(nuevaDireccion);
+			if (!"".equals(nuevaDireccion.trim()))
+				updatedUser.setDireccion(nuevaDireccion);
 		}
 
 		userDao.modificar(updatedUser);
@@ -185,6 +185,7 @@ public class UsuarioBlImp implements UsuarioBl {
 
 	/**
 	 * Verifica si el email ingresado ya existe en la bd
+	 * 
 	 * @param email
 	 * @return true si usuario ya existe en bd, false en caso contrario
 	 * @throws MyDaoException
@@ -199,9 +200,10 @@ public class UsuarioBlImp implements UsuarioBl {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Verifica que usuario del id ingresado tiene estado activo
+	 * 
 	 * @param id
 	 * @return true si usuario tiene estado activo, false en caso contrario
 	 * @throws MyDaoException
@@ -213,8 +215,10 @@ public class UsuarioBlImp implements UsuarioBl {
 		}
 		return true;
 	}
+
 	/**
 	 * Revisa si el usuario del id tiene reservas asociadas
+	 * 
 	 * @param id
 	 * @return true si tiene reservas asociadas, false en caso contrario
 	 * @throws MyDaoException
@@ -229,8 +233,10 @@ public class UsuarioBlImp implements UsuarioBl {
 		}
 		return false;
 	}
+
 	/**
 	 * Revisa si el usuario del id tiene sanciones asociadas
+	 * 
 	 * @param id
 	 * @return true si tiene sanciones asociadas, false en caso contrario
 	 * @throws MyDaoException
@@ -248,6 +254,7 @@ public class UsuarioBlImp implements UsuarioBl {
 
 	/**
 	 * Revisa si el usuario con cedula idResponsable, es del rol rol
+	 * 
 	 * @param id
 	 * @param rol
 	 * @return
@@ -260,7 +267,7 @@ public class UsuarioBlImp implements UsuarioBl {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Revisa si existe por lo menos un investigador en el sistema
 	 * 
@@ -302,7 +309,7 @@ public class UsuarioBlImp implements UsuarioBl {
 		if (!isActiveUser(idUsuario)) {
 			throw new MyDaoException("No se encuentra activo para hacer esta transacci��n", null);
 		}
-		
+
 		if (!matchRol(idUsuario, "investigador")) {
 			throw new MyDaoException("No tiene permisos para hacer esta transaccion", null);
 		}
@@ -392,16 +399,19 @@ public class UsuarioBlImp implements UsuarioBl {
 		if (contrasena == null || "".equals(contrasena.trim())) {
 			throw new MyDaoException("Debe especificar contraseña", null);
 		}
+		if (authDao.obtener() != null) {
+			throw new MyDaoException("Ya existe una sesion abierta, porfavor cierrela para continuar", null);
+		}
 		if (!userExist(cedula)) {
 			throw new MyDaoException("El usuario no existe", null);
 		}
 		if (!isActiveUser(cedula)) {
 			throw new MyDaoException("El usuario no se encuentra activo.", null);
 		}
-		if(captcha == null || "".equals(captcha)){
+		if (captcha == null || "".equals(captcha)) {
 			throw new MyDaoException("Debe ingresar el texto del captcha", null);
 		}
-		if(!captcha.equals(CAPTCHA_CODE)){
+		if (!captcha.equals(CAPTCHA_CODE)) {
 			throw new MyDaoException("Debe ingresar correctamente el captcha", null);
 		}
 		Usuarios user = userDao.obtener(cedula);
@@ -429,49 +439,50 @@ public class UsuarioBlImp implements UsuarioBl {
 		if (!isActiveUser(cedula)) {
 			throw new MyDaoException("El usuario no se encuentra activo.", null);
 		}
-		if(authDao.obtener().getId()!=cedula){
-			throw new MyDaoException("Su sesion no esta abierta",null);
+		if (authDao.obtener().getId() != cedula) {
+			throw new MyDaoException("Su sesion no esta abierta", null);
 		}
-		authDao.eliminar(authDao.obtener()); //elimina la unica instancia de autenticacion que debe haber
+		authDao.eliminar(authDao.obtener()); // elimina la unica instancia de
+												// autenticacion que debe haber
 	}
 
 	@Override
-	public void bloquear(int id_user,int id_administrador, int action) throws MyDaoException {
-		if(id_user == 0){
-			throw new MyDaoException("El identificador del usuario es invalido",null);
+	public void bloquear(int id_user, int id_administrador, int action) throws MyDaoException {
+		if (id_user == 0) {
+			throw new MyDaoException("El identificador del usuario es invalido", null);
 		}
-		if(id_administrador == 0){
-			throw new MyDaoException("El identificador del administrador es invalido",null);
+		if (id_administrador == 0) {
+			throw new MyDaoException("El identificador del administrador es invalido", null);
 		}
-		if(action > 2){
-			throw new MyDaoException("El parametro es 'action' inavlido ",null);
+		if (action > 2) {
+			throw new MyDaoException("El parametro es 'action' inavlido ", null);
 		}
-		
+
 		Usuarios user;
-		user=userDao.obtener(id_user);
-		
-		if(user == null){
-			throw new MyDaoException("No existe ninguna usuario con ese identificador",null);
+		user = userDao.obtener(id_user);
+
+		if (user == null) {
+			throw new MyDaoException("No existe ninguna usuario con ese identificador", null);
 		}
-		
+
 		Usuarios admin;
-		admin=userDao.obtener(id_administrador);
-		
-		if(admin == null){
-			throw new MyDaoException("No existe ningun administrador con ese identificador",null);
+		admin = userDao.obtener(id_administrador);
+
+		if (admin == null) {
+			throw new MyDaoException("No existe ningun administrador con ese identificador", null);
 		}
-		
-		if(!admin.getRol().equals("Administrador")){
-			throw new MyDaoException("El identificador ingreasdo no pertenece a un administrador",null);
+
+		if (!admin.getRol().equals("Administrador")) {
+			throw new MyDaoException("El identificador ingreasdo no pertenece a un administrador", null);
 		}
-		if(action == 0){
+		if (action == 0) {
 			user.setEstado("Bloqueado");
 		}
-		if(action == 1){
+		if (action == 1) {
 			user.setEstado("activo");
 		}
 		userDao.modificar(user);
-		
+
 	}
 
 }

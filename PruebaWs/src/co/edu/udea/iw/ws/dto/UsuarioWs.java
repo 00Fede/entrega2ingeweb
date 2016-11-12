@@ -8,7 +8,7 @@ import java.sql.Blob;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  * Clase tipo POJO que contiene los atributos necesarios
  * para consumir varios servicios web
  */

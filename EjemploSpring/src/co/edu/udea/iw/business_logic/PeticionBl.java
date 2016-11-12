@@ -14,7 +14,7 @@ import co.edu.udea.iw.exception.MyDaoException;
 /**
  * Metodos que garantizan la logica del negocio en la 
  * interaccion con las peticiones
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  * 
  */
 public interface PeticionBl {

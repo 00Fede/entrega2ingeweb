@@ -10,7 +10,7 @@ import co.edu.udea.iw.dto.Usuarios;
 import co.edu.udea.iw.exception.MyDaoException;
 
 /**
- * @author Federico
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  *Define los metodos necesarios para acceder a las peticiones de acceso
  */
 public interface PeticionDao {

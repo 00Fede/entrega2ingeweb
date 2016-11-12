@@ -139,6 +139,7 @@ public class ServicioReserva {
 	 * id dispositivo, foto dispositivo y nombre dispositivo.
 	 * @throws RemoteException
 	 * @throws SQLException
+	 * url ejemplo: http://localhost:8080/PruebaWs/rest/ServicioReserva/reservasinv/?actor=1020&id=1010
 	 */
 	@GET
 	@Path("reservasinv")
@@ -184,6 +185,7 @@ public class ServicioReserva {
 	 * en mal estado), 5(cancelo reserva inoportunamente), 6(extravio de dispositivo)
 	 * @return Mensaje de operacion exitosa
 	 * @throws RemoteException
+	 * url servicio: http://localhost:8080/PruebaWs/rest/ServicioReserva/devolucion?admin=1039&id=2&estado=2
 	 */
 	@PUT
 	@Path("devolucion")
