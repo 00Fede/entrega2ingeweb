@@ -26,7 +26,7 @@ import co.edu.udea.iw.util.validations.Validaciones;
 
 /**
  * @see UsuarioBlImp
- * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
+ * @author Federico Ocampo. cc: 1039464102. federico.ocampoo@udea.edu.co
  *
  */
 public class UsuarioBlImp implements UsuarioBl {
@@ -109,7 +109,7 @@ public class UsuarioBlImp implements UsuarioBl {
 		user.setApellido(apellido);
 		user.setDireccion(direccion);
 		user.setEstado("activo");
-		user.setRol("Administrador");
+		user.setRol("administrador");
 		user.setTelefono(telefono);
 		user.setFoto(new SerialBlob(fotoRAW));
 		user.setEmail(correo);
@@ -439,6 +439,7 @@ public class UsuarioBlImp implements UsuarioBl {
 		if (!isActiveUser(cedula)) {
 			throw new MyDaoException("El usuario no se encuentra activo.", null);
 		}
+		if(authDao.obtener()==null) throw new MyDaoException("No hay sesiones abiertas, puede continuar",null);
 		if (authDao.obtener().getId() != cedula) {
 			throw new MyDaoException("Su sesion no esta abierta", null);
 		}
@@ -472,7 +473,7 @@ public class UsuarioBlImp implements UsuarioBl {
 			throw new MyDaoException("No existe ningun administrador con ese identificador", null);
 		}
 
-		if (!admin.getRol().equals("Administrador")) {
+		if (!admin.getRol().equals("administrador")) {
 			throw new MyDaoException("El identificador ingreasdo no pertenece a un administrador", null);
 		}
 		if (action == 0) {

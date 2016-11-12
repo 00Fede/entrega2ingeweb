@@ -301,7 +301,7 @@ public class SancionBlImp implements SancionBl {
 			throw new MyDaoException("No existe usuarios con ese identificador",null);
 		}
 		
-		if(!admin.getRol().equals("Administrador")){
+		if(!admin.getRol().equals("administrador")){
 			throw new MyDaoException("El id no corresponde a un administrador",null);
 		}
 		
@@ -351,7 +351,7 @@ public class SancionBlImp implements SancionBl {
 		
 		String rol=user.getRol();
 		
-		if(rol.equals("Administrador")){
+		if(rol.equals("administrador")){
 			sancionDao.eliminar(id_sancion);
 		}
 		else{

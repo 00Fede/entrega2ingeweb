@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.udea.iw.business_logic.ReservaBl;
+import co.edu.udea.iw.dao.AuthDao;
 import co.edu.udea.iw.dao.ReservaDao;
 import co.edu.udea.iw.dao.UsuariosDao;
+import co.edu.udea.iw.dto.Autenticacion;
 import co.edu.udea.iw.dto.Reserva;
 import co.edu.udea.iw.dto.Usuarios;
 import co.edu.udea.iw.exception.MyDaoException;
@@ -26,15 +29,16 @@ public class ReservaBlImp implements ReservaBl {
 
 	ReservaDao reservaDao;
 	UsuariosDao usuariosDao;
+	AuthDao auth;
 	
 	/**
 	 * Constructor de la implementacion. Necesario para inyeccion Spring
 	 * @param reservaDao
 	 */
-	public  ReservaBlImp(ReservaDao reservaDao, UsuariosDao userDao) {
+	public  ReservaBlImp(ReservaDao reservaDao, UsuariosDao userDao, AuthDao authDao) {
 		this.reservaDao = reservaDao;
 		this.usuariosDao = userDao;
-		
+		this.auth = authDao;
 	}
 	
 	@Override
@@ -183,6 +187,35 @@ public class ReservaBlImp implements ReservaBl {
 		
 		reservaDao.modificar(reservaNotificada);
 	}
+	
+	@Override
+	public void hacerPrestamo(int idReserva) throws MyDaoException {
+		
+		if(idReserva==0) throw new MyDaoException("No se ingreso id de reserva",null);
+		if(auth.obtener()==null) throw new MyDaoException("Se ha cerrado su sesion, vuelva a loguearse para continuar",null);
+		if(matchRol(auth.obtener().getId(), "administrador")) throw new MyDaoException("No tiene permiso para realizar esta operacion",null);
+		
+		Date fechaActual = new Date();
+		
+		Reserva reserva = reservaDao.obtener(idReserva);
+		if(reserva.getEstado()!=0) throw new MyDaoException("Operacion no permitida, "
+				+ "estado de reserva " +reserva.getEstado(),null);
+		//si reclama el dispositivo despues de la fecha_entrega
+		if(reserva.getFecha_entrega().after(fechaActual)){
+			reserva.setEstado(3);
+			reservaDao.modificar(reserva);
+			throw new MyDaoException("Sobrepaso la fecha de entrega, se cancela reserva",null);
+		}
+		
+		reserva.setFecha_inicio(fechaActual); //actualiza fecha de inicio de reserva
+		long horas = TimeUnit.HOURS.toMillis(reserva.getTiempo_reserva()); //convierte horas de tiempo de entrega en ms
+		reserva.setFecha_entrega(new Date(horas+fechaActual.getTime())); //la fecha entrega es fecha de inicio mas horas de entrega
+		reserva.setEstado(1);
+		//el nuevo responsable del prestamo sera el administrador que lo realiza
+		reserva.setId_responsable(usuariosDao.obtener(auth.obtener().getId()));
+		
+		reservaDao.modificar(reserva);
+	}
 
 	
 	/**
@@ -214,6 +247,8 @@ public class ReservaBlImp implements ReservaBl {
 		}
 		return true;
 	}
+
+	
 
 	
 

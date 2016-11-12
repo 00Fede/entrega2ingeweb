@@ -76,7 +76,7 @@ public class UsuarioBlImpTest {
 	}
 	@Test
 	public void testCerrarSesion(){
-		int cedula = 65456456;
+		int cedula = 1039;
 		try {
 			userBl.cerrarSesion(cedula);
 		} catch (MyDaoException e) {

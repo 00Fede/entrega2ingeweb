@@ -79,7 +79,19 @@ public class ReservaBlImpTest {
 			e.printStackTrace();
 			fail(e.getMessage());
 		}
+	}
+	
+	@Test
+	public void testRealizarPrestamo() throws MyDaoException{
 		
+		int idReserva = 3;
+		try {
+			reservaBl.hacerPrestamo(idReserva);
+			assertTrue(dao.obtener(idReserva).getEstado()==1);
+		} catch (MyDaoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 		
 	}
 

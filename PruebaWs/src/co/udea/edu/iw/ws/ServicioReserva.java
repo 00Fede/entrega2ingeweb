@@ -201,4 +201,25 @@ public class ServicioReserva {
 		return "La reserva con id "+id+" fue actualizada correctamente"
 		+ " con estado "+estado+".";
 	}
+	/**
+	 * Servicio Web para FRQ-0001 Realizar Prestamo de un dispositivo
+	 * Este servicio permite a un administrador hacer el proceso de realizar el prestamo a un 
+	 * investigador. Para esto se modifican el estado, fecha de inicio, fecha fin y responsable
+	 * de la reserva. La reserva es ya considerada un prestamo. Se verifica con la sesion que el usuari
+	 * tenga permisos para hacer la operacion
+	 * @param idReserva - id de la reserva que sera prestamo
+	 * @return Mensaje de Operacion Exitosa
+	 * @throws RemoteException
+	 */
+	@PUT
+	@Path("prestamo")
+	@Produces(MediaType.TEXT_HTML)
+	public String realizarPrestamo(@QueryParam("id")int idReserva) throws RemoteException{
+		try {
+			reservaBl.hacerPrestamo(idReserva);
+		} catch (MyDaoException e) {
+			throw new RemoteException(e.getMessage(),e);
+		}
+		return "El prestamo "+idReserva+" fue realizado correctamente";
+	}
 }

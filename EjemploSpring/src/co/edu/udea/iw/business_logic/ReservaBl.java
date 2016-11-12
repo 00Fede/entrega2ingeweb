@@ -21,6 +21,15 @@ import co.edu.udea.iw.exception.MyDaoException;
  */
 public interface ReservaBl {
 	
+	/**
+	 * metodo para FRQ-0001 - Realizar prestamo de un Dispositivo
+	 * Este metodo permite a un administrador hacer un prestamo a un investigador.
+	 * Esto se realiza cambiando el estado de la reserva a 1 (prestamo activo), debe 
+	 * actualizarse la fecha de inicio, y la fecha de entrega, tambien cambia el admin responsable
+	 * @param idReserva id de la reserva que se hara prestamo
+	 * @throws MyDaoException
+	 */
+	public void hacerPrestamo(int idReserva) throws MyDaoException;
 	
 	/**
 	 * Este metodo permitirá cancelar una reserva brindandole
