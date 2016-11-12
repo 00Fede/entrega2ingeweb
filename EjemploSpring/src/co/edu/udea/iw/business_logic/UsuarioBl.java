@@ -11,11 +11,10 @@ import co.edu.udea.iw.exception.MyDaoException;
 /**
  * Metodo que garantiza la logica del negocio en
  * la interaccion con el usuario
- * 
+ * roles que puede tomar
+ * administrador, superusuario, investigador
  * @author estudiantelis
- *
  */
-
 
 public interface UsuarioBl {
 

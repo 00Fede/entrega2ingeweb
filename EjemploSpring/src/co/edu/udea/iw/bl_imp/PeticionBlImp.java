@@ -71,6 +71,7 @@ public class PeticionBlImp implements PeticionBl {
 		if (cedula == 0)throw new MyDaoException("Debe especificar cedula.", null);
 		if(existsId(cedula)) throw new MyDaoException("Ya existe una peticion o un usuario con esa cedula", null);
 		if(existeEmail(email)) throw new MyDaoException("Ya existe una peticion o un usuario con este correo",null);
+		if(existsUsername(usuario)) throw new MyDaoException("Ya existe una peticion o un usuario con este nombre de usuario",null);
 		if (contrasena.length() < 6) throw new MyDaoException("La contraseña debe contener almenos 6 caracteres", null);
 		if (!Validaciones.isEmail(email)) throw new MyDaoException("El correo electronico no es valido",null);
 		if (email == null || "".equals(email.trim())) throw new MyDaoException("Debe especificar correo electronico", null);
@@ -132,6 +133,31 @@ public class PeticionBlImp implements PeticionBl {
 		Iterator<Usuarios> j = list2.iterator();
 		while(j.hasNext()){
 			if(j.next().getCedula()==cedula){
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
+	/**
+	 * Verifica si ya existe una peticion de acceso o un usuario con ese nombre de usuario
+	 * @param username - nombre de usuario. Debe ser unico.
+	 * @return true si ya existe una peticion, false de lo contrario
+	 * @throws MyDaoException
+	 */
+	private boolean existsUsername(String username) throws MyDaoException {
+		List<PeticionAcceso> list = peticionDao.obtener();
+		Iterator<PeticionAcceso> i = list.iterator();
+		while(i.hasNext()){
+			if(i.next().getUsuario()==username){
+				return true;
+			}
+		}
+		List<Usuarios> list2 = userDao.obtener();
+		Iterator<Usuarios> j = list2.iterator();
+		while(j.hasNext()){
+			if(j.next().getUsuario()==username){
 				return true;
 			}
 		}
