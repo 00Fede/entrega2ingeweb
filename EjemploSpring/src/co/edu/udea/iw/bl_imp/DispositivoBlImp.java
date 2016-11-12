@@ -57,12 +57,7 @@ public class DispositivoBlImp implements DispositivoBl {
 	public List<Dispositivos> verDispositivosPorModelo() throws MyDaoException {
 		List<Dispositivos> dispList = null;
 		List<Dispositivos> listDispModelo = null;
-		// usuarioConectado = usuarioDao.obtenerUsuarioConectado();
-		// valida si el usuario no esta conectado
-		// if (usuarioConectado.equals(null)) {
-		// throw new MyDaoException("Debe ser administrador para acceder a esta
-		// función", null);
-		// }
+		
 		dispList = dispDao.obtener();
 
 		if (dispList.isEmpty()) {
@@ -283,47 +278,6 @@ public class DispositivoBlImp implements DispositivoBl {
 		return true;
 	}
 
-	@Override
-	public void realizarPrestamoDispositivo(int cedulaResponsable,int cedulaI, int nroSerie, Date fechaInicio, int duracionHoras, int idReserva)
-			throws MyDaoException {
-		
-		if (!usuarioActivo(cedulaResponsable)) {
-			throw new MyDaoException("No se encuentra activo para hacer esta transacción", null);
-		}
-
-		if (!(matchRol(cedulaResponsable, "administrador")|| matchRol(cedulaResponsable, "superusuario"))) {
-			throw new MyDaoException("No tiene permisos para hacer esta transaccion", null);
-		}
-		
-		if (!disponibilidadDispositivo(nroSerie)) {
-			throw new MyDaoException("El dispositivo no puede ser prestado porque no se encuentra disponible", null);
-		}
-		
-		if(duracionHoras > 8){
-			throw new MyDaoException("La duracion del prestamo no puede ser superior a 8 horas", null);
-		}
-		
-		Dispositivos disPrestamo = dispDao.obtener(nroSerie);
-		disPrestamo.setEstado("0");
-		
-		Usuarios usuario = usuarioDao.obtener(cedulaI);
-		Usuarios administrador = usuarioDao.obtener(cedulaResponsable);
-		
-		Reserva prestamo = new Reserva();
-		prestamo.setEstado(1);
-		prestamo.setFecha_entrega(fechaInicio);
-		prestamo.setId_cedula(usuario);
-		prestamo.setId_responsable(administrador);
-		prestamo.setId_reserva(idReserva);
-		prestamo.setId_dispositivo(disPrestamo);
-		prestamo.setFecha_inicio(fechaInicio);
-		prestamo.setTiempo_reserva(duracionHoras);
-		prestamo.setEstado(1);
-		
-		reservaDao.guardar(prestamo);
-		dispDao.modificar(disPrestamo);
-			
-	}
-
+	
 
 }

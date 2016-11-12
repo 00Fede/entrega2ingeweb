@@ -90,4 +90,8 @@ public interface ReservaBl {
 	 */
 	public void notificarDevolucion(int idReserva, int idAdmin, int estado) throws MyDaoException; 
 	
+	
+	public List<Reserva> prestamosPorDispositivos(int idInvest, int nroSerie) throws MyDaoException;
+	
+	
 }

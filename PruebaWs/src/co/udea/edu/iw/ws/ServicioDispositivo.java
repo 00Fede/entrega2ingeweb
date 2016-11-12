@@ -170,5 +170,7 @@ public class ServicioDispositivo {
 			throw new RemoteException(e.getMessage(), e);
 		}
 	}
+	
+	
 
 }

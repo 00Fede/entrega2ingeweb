@@ -247,6 +247,28 @@ public class ReservaBlImp implements ReservaBl {
 		}
 		return true;
 	}
+	
+	
+	@Override
+	public List<Reserva> prestamosPorDispositivos(int nroSerie, int idResponsable)
+			throws MyDaoException {
+		if(!isActiveUser(idResponsable)) throw new MyDaoException("No se encuentra activo",null);
+		if(!matchRol(idResponsable, "administrador")) throw new MyDaoException("No tiene permiso para ver este listado",null);
+		List<Reserva> resultado = new ArrayList<Reserva>();
+		List<Reserva> todas = reservaDao.obtener();
+		if(todas==null||todas.size()==0) throw new MyDaoException("No existen prestamos  para el dispositivo con numero de serie  "
+				+ nroSerie,null);
+		
+		Iterator<Reserva> i = todas.iterator();
+		while(i.hasNext()){
+			Reserva r = i.next();
+			if((r.getId_dispositivo().getNumero_serie()== nroSerie) & (r.getEstado()==1 || r.getEstado()==2
+					|| r.getEstado()== 4 || r.getEstado()==6 )){
+				resultado.add(r);
+			}
+		}
+		return resultado;
+	}
 
 	
 

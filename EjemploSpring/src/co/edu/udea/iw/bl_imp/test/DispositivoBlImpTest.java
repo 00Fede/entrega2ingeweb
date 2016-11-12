@@ -100,18 +100,5 @@ public class DispositivoBlImpTest {
 		}
 	}
 	
-	@Test
-	public void testRealizarPrestamoDispositivo() {
-		try {
-			int nroSerie = 222;
-			int cedulaResponsable = 1039;
-			int cedulaI = 1020;
-			java.util.Date fechaInicio = new java.util.Date();
-			int duracionhoras = 6;
-			int idReserva = 45;
-            dispBl.realizarPrestamoDispositivo(cedulaResponsable, cedulaI, nroSerie, (Date) fechaInicio, duracionhoras, idReserva);
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-	}
+	
 }

@@ -94,5 +94,19 @@ public class ReservaBlImpTest {
 		}
 		
 	}
+	
+	@Test
+	public void testprestamosPorDispositivos() throws MyDaoException{
+		int nroSerie = 123;
+		int idResponsable = 1039;
+		List<Reserva> resultado;
+		try{
+			resultado = reservaBl.prestamosPorDispositivos(nroSerie, idResponsable);
+			assertTrue(resultado.size()==1);
+		}catch (MyDaoException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
 
 }

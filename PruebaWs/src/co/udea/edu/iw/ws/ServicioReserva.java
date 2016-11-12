@@ -222,4 +222,36 @@ public class ServicioReserva {
 		}
 		return "El prestamo "+idReserva+" fue realizado correctamente";
 	}
+	
+	@GET
+	@Path("prestamosdispositivos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ReservaWs> prestamosDispositivos(@QueryParam("idResponsable")int idResponsable,
+			@QueryParam("nroSerie")int nroSerie) throws RemoteException, SQLException{
+		List<Reserva> data = null;
+		List<ReservaWs> reservas = new ArrayList<>();
+		try{
+			data = reservaBl.prestamosPorDispositivos(nroSerie, idResponsable); //se buscan reservas por dispositivo
+			Iterator<Reserva> i = data.iterator();
+			
+			while(i.hasNext()){
+				Reserva r = i.next();
+				Dispositivos d = r.getId_dispositivo();
+				//podria iniciar d aqui y tomar valores en dws
+				if(r.getId_dispositivo().getNumero_serie()==nroSerie){              
+					DispositivoWs disp = new DispositivoWs();
+					disp.setId(d.getNumero_serie());
+					disp.setNombre(d.getNombre()); 
+					disp.setFoto(d.getFoto().getBytes(1,(int)d.getFoto().length())); 
+					ReservaWs rw = new ReservaWs(r.getId_reserva(), 
+							r.getFecha_inicio(), r.getFecha_entrega(),disp);
+					
+					reservas.add(rw);
+				}
+			}
+		}catch(MyDaoException e){
+			throw new RemoteException(e.getMessage(),e);
+		}
+		return reservas;		
+	}
 }
