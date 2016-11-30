@@ -59,7 +59,7 @@ public class ReservaBlImpTest {
 	
 	@Test
 	public void testVerReservasPorInvest() throws MyDaoException{
-		int idInvest = 1012;
+		int idInvest = 1040;
 		int idResponsable = 1039;
 		List<Reserva> resultado;
 		try{
@@ -103,7 +103,7 @@ public class ReservaBlImpTest {
 	
 	@Test
 	public void testprestamosPorDispositivos() throws MyDaoException{
-		int nroSerie = 123;
+		int nroSerie = 333;
 		int idResponsable = 1039;
 		List<Reserva> resultado;
 		try{
