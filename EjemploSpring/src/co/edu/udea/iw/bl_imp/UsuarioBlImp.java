@@ -392,15 +392,14 @@ public class UsuarioBlImp implements UsuarioBl {
 
 	@Override
 	public boolean login(int cedula, String contrasena, String captcha) throws MyDaoException {
-		boolean resultado = false;
 		if (cedula == 0) {
 			throw new MyDaoException("Debe especificar cedula.", null);
 		}
 		if (contrasena == null || "".equals(contrasena.trim())) {
 			throw new MyDaoException("Debe especificar contraseña", null);
 		}
-		if (authDao.obtener() != null) {
-			throw new MyDaoException("Ya existe una sesion abierta, porfavor cierrela para continuar", null);
+		if (contrasena.length()<6) {
+			throw new MyDaoException("La contraseña debe tener mas de 6 caracteres", null);
 		}
 		if (!userExist(cedula)) {
 			throw new MyDaoException("El usuario no existe", null);
@@ -416,16 +415,21 @@ public class UsuarioBlImp implements UsuarioBl {
 		}
 		Usuarios user = userDao.obtener(cedula);
 		Cifrar c = new Cifrar();
-		String encryptedPass = c.encrypt(contrasena);
-		if (user.getContrasena().equals(encryptedPass)) {
-			resultado = true;
-			Autenticacion auth = new Autenticacion();
-			auth.setId(cedula);
-			auth.setFecha_auth(new Date());
-			authDao.guardar(auth);
-			return resultado;
+		String encryptedPass = c.encrypt(contrasena);	
+		if (!user.getContrasena().equals(encryptedPass)) {
+			throw new MyDaoException("Contraseña Incorrecta.", null);
+			
 		}
-		return resultado;
+		if (authDao.obtener() != null) {
+			throw new MyDaoException("Ya existe una sesion abierta, porfavor cierrela para continuar", null);
+		}
+		
+		Autenticacion auth = new Autenticacion();
+		auth.setId(cedula);
+		auth.setFecha_auth(new Date());
+		authDao.guardar(auth);
+		return true;
+		
 	}
 
 	@Override

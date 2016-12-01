@@ -59,7 +59,9 @@ public interface PeticionBl {
 	/**
 	 * FRQ-0014 - Evaluar peticiones de acceso
 	 * Permite a un usuario administrador evaluar una peticion de acceso dada por idPeticion
-	 * y agregar su decision y justificacion
+	 * y agregar su decision y justificacion. Adicional a esto, si la petición es aceptada, automaticamente
+	 * se crea el usuario con los datos ingresados por la persona en la peticion de acceso. Este usuario sera de tipo rol
+	 * y el Usuario admmin que lo creo sera quien aprobo la solicitud. 
 	 * @param idPeticion - id peticion a evaluar
 	 * @param estado - resultado de la peticion (aprobado, rechazado)
 	 * @param admin - responsable de la evaluacion

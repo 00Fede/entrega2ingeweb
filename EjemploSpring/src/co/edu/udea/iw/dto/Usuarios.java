@@ -11,6 +11,9 @@ import java.sql.Blob;
  */
 public class Usuarios {
 	
+	public static final String ROL_INVESTIGADOR = "investigador";
+	public static final String USUARIO_ACTIVO = "activo";
+	
 	private int cedula;
 	private String nombre;
 	private String apellido;

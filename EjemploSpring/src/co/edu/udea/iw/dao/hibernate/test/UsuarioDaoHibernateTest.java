@@ -64,13 +64,13 @@ public class UsuarioDaoHibernateTest {
 	public void testGuardar() throws SerialException, SQLException {
 		
 		Usuarios user=new Usuarios();
-		user.setCedula(1016);
-		user.setNombre("carlos");
-		user.setApellido("guerra");
-		user.setUsuario("cargujue");
-		user.setContrasena("gueguera");
-		user.setRol("invest");
-		user.setDireccion("direccion42");
+		user.setCedula(1039464102);
+		user.setNombre("Federico");
+		user.setApellido("Ocampo Ortiz");
+		user.setUsuario("fedico");
+		user.setContrasena("fedico");
+		user.setRol("investigador");
+		user.setDireccion("Cualquier direccion");
 		user.setEmail("corre1o@correo.com");
 		String u = "usuariog";
 		user.setFoto(new SerialBlob(u.getBytes()));

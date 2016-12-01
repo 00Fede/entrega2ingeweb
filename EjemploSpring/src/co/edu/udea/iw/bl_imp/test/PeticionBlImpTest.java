@@ -17,6 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import co.edu.udea.iw.business_logic.PeticionBl;
 import co.edu.udea.iw.dao.PeticionDao;
+import co.edu.udea.iw.dao.UsuariosDao;
+import co.edu.udea.iw.dto.PeticionAcceso;
 import co.edu.udea.iw.exception.MyDaoException;
 
 /**
@@ -31,6 +33,8 @@ public class PeticionBlImpTest {
 	PeticionBl peticionBl;
 	@Autowired
 	PeticionDao peticionDao;
+	@Autowired
+	UsuariosDao userDao;
 	
 	/**
 	 * Test method for {@link co.edu.udea.iw.bl_imp.PeticionBlImp#verPeticionesDeAcceso()}.
@@ -55,14 +59,14 @@ public class PeticionBlImpTest {
 	 */
 	@Test
 	public void testCrearPeticionDeAcceso() throws SerialException,SQLException {
-		int cedula = 999;
-		String nombre = "Tatiana";
-		String apellido = "Bernal";
-		String contrasena = "contrasena";
-		String telefono = "2193939";
-		String direccion = "calle rota";
-		String email = "correo999@correo.com";
-		String usuario = "tabernal";
+		int cedula = 1039464100;
+		String nombre = "Mauricio";
+		String apellido = "Quintero";
+		String contrasena = "mauricio";
+		String telefono = "2773632";
+		String direccion = "alguna direccion";
+		String email = "mauricioinvest@gmail.com";
+		String usuario = "mauricioq";
 		
 		try {
 			peticionBl.crearPeticionDeAcceso(cedula, usuario, nombre, apellido, 
@@ -80,14 +84,16 @@ public class PeticionBlImpTest {
 	 */
 	@Test
 	public void testEvaluarPeticionDeAcceso() {
-		int idPeticion = 13;
-		String estado = "rechazado";
+		int idPeticion = 12;
+		String estado = PeticionAcceso.USUARIO_APROBADO;
 		int admin = 1039;
-		String justificacion = "Hola justificacion";
+		String justificacion = "Mauricio es investigador";
 		
 		try{
 			peticionBl.evaluarPeticionDeAcceso(idPeticion, estado, admin, justificacion);
-			assertTrue(peticionDao.obtener(idPeticion).getEstado().equals(estado));
+			PeticionAcceso peticionEvaluada = peticionDao.obtener(idPeticion);
+			assertTrue(peticionEvaluada.getEstado().equals(estado) &&
+					userDao.obtener(peticionEvaluada.getCedula())!=null);
 		}catch (MyDaoException e) {
 			e.printStackTrace();
 			fail(e.getMessage());

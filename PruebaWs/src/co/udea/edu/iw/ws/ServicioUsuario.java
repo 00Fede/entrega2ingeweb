@@ -219,9 +219,13 @@ public class ServicioUsuario {
 	public String login(@QueryParam("id")int id,@QueryParam("pass")String pass,
 			@QueryParam("captcha")String captcha) throws RemoteException{
 		try {
-			return "Login de usuario: " +userBl.login(id, pass, captcha);
+			if(userBl.login(id, pass, captcha)){
+				return "Usuario con id " + id + " registrado exitosamente." ;
+			}else{
+				return "Un error interno ha ocurrido. Contacte al Administrador.";
+			}
 		} catch (MyDaoException e) {
-			throw new RemoteException(e.getMessage(),e);
+			return e.getMessage();
 		}
 	}
 	

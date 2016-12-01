@@ -26,6 +26,7 @@ import co.edu.udea.iw.util.validations.Validaciones;
  */
 public class PeticionBlImp implements PeticionBl {
 	
+
 	PeticionDao peticionDao;
 	AuthDao authDao;
 	UsuariosDao userDao;
@@ -112,6 +113,23 @@ public class PeticionBlImp implements PeticionBl {
 		peticionEvaluada.setJustificacion(justificacion);
 		
 		peticionDao.modificar(peticionEvaluada);
+		
+		if(peticionEvaluada.getEstado().equals(PeticionAcceso.USUARIO_APROBADO)){
+			Usuarios u = new Usuarios();
+			u.setCedula(peticionEvaluada.getCedula());
+			u.setNombre(peticionEvaluada.getNombre());
+			u.setApellido(peticionEvaluada.getApellido());
+			u.setContrasena(peticionEvaluada.getContrasena());
+			u.setEmail(peticionEvaluada.getEmail());
+			u.setDireccion(peticionEvaluada.getDireccion());
+			u.setEstado(Usuarios.USUARIO_ACTIVO);
+			u.setRol(Usuarios.ROL_INVESTIGADOR);
+			u.setFoto(peticionEvaluada.getFoto());
+			u.setTelefono(peticionEvaluada.getTelefono());
+			u.setUsuario(peticionEvaluada.getUsuario());
+			
+			userDao.guardar(u);
+		}
 		
 	}
 

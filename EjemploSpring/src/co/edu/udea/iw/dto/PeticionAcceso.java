@@ -14,6 +14,8 @@ import java.sql.Blob;
  * con sus respectivos setter y getters.
  */
 public class PeticionAcceso {
+	
+	public static final String USUARIO_APROBADO = "aprobado";
 	private int id;
 	private int cedula;
 	private String nombre;
