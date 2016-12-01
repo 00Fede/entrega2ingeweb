@@ -62,26 +62,7 @@ angular.module('app',['ngRoute','ngCookies'])
 	$routeProvider.when('/', {
 		templateUrl: "pages/login.html",
 		controller: "loginCtrl"
-			});
-	$routeProvider.when('/main',{
-		templateUrl: "pages/main.html",
-		controller: "mainCtrl"
-<<<<<<< HEAD
-	});		
-	$routeProvider.when('/solicitarReserva',{
-	templateUrl: "pages/solicitarReserva.html",
-	controller: "solicitarReservaCtrl"
-	});
-=======
-	});
-	$routeProvider.when('/listarReserva',{
-		templateUrl: "pages/listarReserva.html",
-		controller: "listarReservaCtrl"
-	});
-	
->>>>>>> 4ec1bb177a1785a49d2024d2fefa45d3f0342cd8
-	
-	// aqui irian las otras rutas
+	})
 }])
 .service('solicitarReserva', function($http) {
 	
@@ -120,7 +101,6 @@ angular.module('app',['ngRoute','ngCookies'])
 						.success(function(data, status, headers, config){
 							
 							console.log("Data recibida = " + data);
-							alert(data.message);
 							console.log("Registro, status= "+status);
 							if(data.estado==200){
 								// solo si el registro es exitoso
@@ -131,21 +111,23 @@ angular.module('app',['ngRoute','ngCookies'])
 								// expired.setDate(today.getDate() + 1);
 								console.log("cookies expires at " + expired);
 								$cookies.put('sessionID',$scope.id,{expires: expired});
-								$location.url("/main");
+								location.href = "pages/main.html";
+								console.log("location.url result =" + location.url);
+							}else{		
+								alert(data.message);
 							}
 						})
 	};
 	
 })
-.controller('mainCtrl',  function($scope, $cookies, $log, $location){
+.controller('mainCtrl',  function($scope, $cookies){
 	$scope.idUsuario = $cookies.get('sessionID');
-	$scope.$watch($scope.idUsuario, function(newValue) {
-        console.log('Cookie changed, string: ' + $scope.idUsuario)
-        if($scope.idUsuario===undefined){
-        	$location.url('/'); // vuelve al login
-        }
-    });
-	
+	/**
+	 * $scope.$watch($scope.idUsuario, function(newValue) { console.log('Cookie
+	 * changed, string: ' + $scope.idUsuario) if($scope.idUsuario===undefined){
+	 * $location.url('/'); // vuelve al login } <<<<<<< HEAD });
+	 */
+	console.log("SessionID obtained from cookies in main = " + $scope.idUsuario);
 	
 	
 })

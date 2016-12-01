@@ -99,8 +99,8 @@ VALUES (333,'espectometro','UCUQ2','Mide espectro','no sacar de la instalacion',
 
 INSERT INTO dispositivo(`numero_unico_serie`,`nombre`,`modelo`,`descripcion`,
 `restriccion`,`observaciones`,`estado`,`foto`,`disponibilidad`)
-VALUES (555,'generador de ondas','OND123','genera ondaz 10-100hz','No usar cerca a otros generadores',
-'utilizar protecto','2','c48b','baja');
+VALUES (000,'generador de ondas','OND123','genera ondaz 10-100hz','No usar cerca a otros generadores',
+'utilizar protecto','1','c48b','baja');
 
 INSERT INTO dispositivo(`numero_unico_serie`,`nombre`,`modelo`,`descripcion`,
 `restriccion`,`observaciones`,`estado`,`foto`,`disponibilidad`)
@@ -125,10 +125,6 @@ INSERT INTO usuarios VALUES (777,'Soy','Superusuario','supersu','5baa61e4c9b93f3
 INSERT INTO sancion VALUES (8899,333,1012,1039,'2016-10-20','limite de tiempo','72');
 
 INSERT INTO reserva VALUES (9988,333,1012,1039,'2016-10-18',NULL,'72',0);
-
-INSERT INTO reserva VALUES (1,333,1012,1039,'2016-10-18',NULL,'72',0);
-INSERT INTO reserva VALUES (2,552,1012,1039,'2016-10-18',NULL,'72',0);
-INSERT INTO reserva VALUES (3,555,1012,1039,'2016-10-18',NULL,'72',0);
 
 INSERT INTO peticion_acceso VALUES (1,333,'jacinto','perez','japerez','password',
 'cl 76S','japerez@correo.com','3ab4','3332548','pendiente',1020,'justificacion');
