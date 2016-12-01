@@ -36,10 +36,10 @@ angular.module('app',['ngRoute','ngCookies'])
 		templateUrl: "pages/login.html",
 		controller: "loginCtrl"
 			});
-	$routeProvider.when('/main',{
+	/**$routeProvider.when('/main',{
 		templateUrl: "pages/main.html",
 		controller: "mainCtrl"
-	})
+	})*/
 	
 	// aqui irian las otras rutas
 }])
@@ -80,7 +80,6 @@ angular.module('app',['ngRoute','ngCookies'])
 						.success(function(data, status, headers, config){
 							
 							console.log("Data recibida = " + data);
-							alert(data.message);
 							console.log("Registro, status= "+status);
 							if(data.estado==200){
 								//solo si el registro es exitoso
@@ -91,20 +90,23 @@ angular.module('app',['ngRoute','ngCookies'])
 								//expired.setDate(today.getDate() + 1);
 								console.log("cookies expires at " + expired);
 								$cookies.put('sessionID',$scope.id,{expires: expired});
-								$location.url("/main");
+								location.href = "pages/main.html";
+								console.log("location.url result =" + location.url);
+							}else{		
+								alert(data.message);
 							}
 						})
 	};
 	
 })
-.controller('mainCtrl',  function($scope, $cookies, $log, $location){
+.controller('mainCtrl',  function($scope, $cookies){
 	$scope.idUsuario = $cookies.get('sessionID');
-	$scope.$watch($scope.idUsuario, function(newValue) {
+	/**$scope.$watch($scope.idUsuario, function(newValue) {
         console.log('Cookie changed, string: ' + $scope.idUsuario)
         if($scope.idUsuario===undefined){
         	$location.url('/'); //vuelve al login
         }
-    });
+    });*/
 	console.log("SessionID obtained from cookies in main = " + $scope.idUsuario);
 	
 	
