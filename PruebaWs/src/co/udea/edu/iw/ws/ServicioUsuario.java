@@ -1,4 +1,4 @@
-/**
+ /**
  * 
  */
 package co.udea.edu.iw.ws;
@@ -18,6 +18,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -212,20 +215,29 @@ public class ServicioUsuario {
 	 * @return Mensaje de operacion exitosa
 	 * @throws RemoteException
 	 * url ejemplo: http://localhost:8080/PruebaWs/rest/ServicioUsuario/login?id=1039&pass=nuevfsf33fsdfapass&captcha=n3ur0
+	 * @throws JSONException 
 	 */
 	@POST
 	@Path("login")
-	@Produces(MediaType.TEXT_HTML)
-	public String login(@QueryParam("id")int id,@QueryParam("pass")String pass,
-			@QueryParam("captcha")String captcha) throws RemoteException{
+	@Produces(MediaType.APPLICATION_JSON)
+	public JSONObject login(@QueryParam("id")int id,@QueryParam("pass")String pass,
+			@QueryParam("captcha")String captcha) throws RemoteException, JSONException{
 		try {
+			JSONObject json = new JSONObject();
 			if(userBl.login(id, pass, captcha)){
-				return "Usuario con id " + id + " registrado exitosamente." ;
+				json.put("message", "Usuario con id " + id + " registrado exitosamente.");
+				json.put("estado",200);
+				return json;
 			}else{
-				return "Un error interno ha ocurrido. Contacte al Administrador.";
+				json.put("message", "Un error interno ha ocurrido. Contacte al Administrador.");
+				json.put("estado", 400);
+				return json;
 			}
 		} catch (MyDaoException e) {
-			return e.getMessage();
+			JSONObject json = new JSONObject();
+			json.put("message", e.getMessage());
+			json.put("estado", 400);
+			return json;
 		}
 	}
 	
