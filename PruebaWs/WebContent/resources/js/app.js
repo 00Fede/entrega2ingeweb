@@ -29,19 +29,45 @@ angular.module('app',['ngRoute','ngCookies'])
 		})
 	}
 })
+
+.service('Listar', function($http){
+	this.listarReserva = function(identificador){
+		return $http({
+			method: 'GET',
+			url: 'http://localhost:8080/PruebaWs/rest/ServicioReserva/listarReservas',
+			params:{
+				id: identificador
+				
+			}
+		})
+	}
+})
+
+.service('Prestar', function($http){
+	this.prestar = function(idReserva){
+		return $http({
+			method: 'PUT',
+			url: 'http://localhost:8080/PruebaWs/rest/ServicioReserva/prestamo',
+			params:{
+				id : idReserva
+			}
+		})
+	}
+})
+
+
 .config(['$routeProvider', function($routeProvider) {
 	// Cuando este en '/' corre la configuracion del json
 	// las rutas se hacen relativas a donde esta el index.html
 	$routeProvider.when('/', {
 		templateUrl: "pages/login.html",
 		controller: "loginCtrl"
-			});
-	/**$routeProvider.when('/main',{
-		templateUrl: "pages/main.html",
-		controller: "mainCtrl"
-	})*/
+	});
+	/**
+	 * $routeProvider.when('/listarReserva',{ templateUrl:
+	 * "pages/listarReserva.html", controller: "listarReservaCtrl" });
+	 */
 	
-	// aqui irian las otras rutas
 }])
 .service('solicitarReserva', function($http) {
 	
@@ -73,7 +99,7 @@ angular.module('app',['ngRoute','ngCookies'])
 	$scope.captcha = '';
 	
 	var cookieId = $cookies.get('sessionID');
-	console.log("User id session cookie = " + cookieId);
+	
 	
 	$scope.autenticar = function() {
 		loginService.autenticar($scope.id, $scope.password, $scope.captcha)
@@ -82,12 +108,12 @@ angular.module('app',['ngRoute','ngCookies'])
 							console.log("Data recibida = " + data);
 							console.log("Registro, status= "+status);
 							if(data.estado==200){
-								//solo si el registro es exitoso
+								// solo si el registro es exitoso
 								var today = new Date();
 								var expired = new Date(today);
 								console.log("cookie generated at " + expired);
 								expired.setMinutes(today.getMinutes() + 30);
-								//expired.setDate(today.getDate() + 1);
+								// expired.setDate(today.getDate() + 1);
 								console.log("cookies expires at " + expired);
 								$cookies.put('sessionID',$scope.id,{expires: expired});
 								location.href = "pages/main.html";
@@ -101,12 +127,11 @@ angular.module('app',['ngRoute','ngCookies'])
 })
 .controller('mainCtrl',  function($scope, $cookies){
 	$scope.idUsuario = $cookies.get('sessionID');
-	/**$scope.$watch($scope.idUsuario, function(newValue) {
-        console.log('Cookie changed, string: ' + $scope.idUsuario)
-        if($scope.idUsuario===undefined){
-        	$location.url('/'); //vuelve al login
-        }
-    });*/
+	/**
+	 * $scope.$watch($scope.idUsuario, function(newValue) { console.log('Cookie
+	 * changed, string: ' + $scope.idUsuario) if($scope.idUsuario===undefined){
+	 * $location.url('/'); // vuelve al login } <<<<<<< HEAD });
+	 */
 	console.log("SessionID obtained from cookies in main = " + $scope.idUsuario);
 	
 	
@@ -122,7 +147,7 @@ angular.module('app',['ngRoute','ngCookies'])
 		solicitarReserva.solicitarReserv($scope.id, $scope.idDev, $scope.fecha, $scope.tiempo)
 						.success(function(data, status, headers, config){
 							console.log("Data recibida = " + data);
-							//Solicitud Exitosa
+							// Solicitud Exitosa
 							alert(data);
 							console.log("Registro, status= "+status);
 							
@@ -130,3 +155,48 @@ angular.module('app',['ngRoute','ngCookies'])
 	};
 	
 })
+
+.controller('listarReservaCtrl', function($location,$cookies,$scope, Listar,Prestar){ 
+	
+	$scope.idReserva = "";
+	
+	var cookieId = $cookies.get('sessionID');
+	console.log("User id session cookie = " + cookieId);
+	
+	
+	
+	
+		console.log(cookieId);
+		Listar.listarReserva(cookieId).then(function successCallback(response){
+			if(response.data.reservaWs.length != undefined){
+				$scope.listaReserva= response.data.reservaWs;
+			}else{
+				$scope.listaReserva= response.data;
+			}
+		}, function errorCallback(response){
+			alert("Id invalido");
+		
+});
+	
+
+	
+	$scope.prestar=function(value){		
+		Prestar.prestar($scope.listaReserva[value].idReserva
+				).success(function(data){
+					
+					if(data == ''){
+						alert("El prestamo no se ha podido realizar");
+						$scope.prestarId = "";
+						
+					}else{
+						alert(data);
+						$location.url("/listarReserva");
+					}
+				});
+}
+		
+})
+
+
+
+
