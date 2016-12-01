@@ -105,7 +105,7 @@ angular.module('app',['ngRoute','ngCookies'])
 	$scope.captcha = '';
 	
 	var cookieId = $cookies.get('sessionID');
-	console.log("User id session cookie = " + cookieId);
+	
 	
 	$scope.autenticar = function() {
 		loginService.autenticar($scope.id, $scope.password, $scope.captcha)
@@ -137,7 +137,7 @@ angular.module('app',['ngRoute','ngCookies'])
         	$location.url('/'); // vuelve al login
         }
     });
-	console.log("SessionID obtained from cookies in main = " + $scope.idUsuario);
+	
 	
 	
 })
@@ -161,33 +161,41 @@ angular.module('app',['ngRoute','ngCookies'])
 	
 })
 
-.controller('listarReservaCtrl', function($scope, Listar,Prestar){ 
-	$scope.identificador = "";
+.controller('listarReservaCtrl', function($location,$cookies,$scope, Listar,Prestar){ 
+	
 	$scope.idReserva = "";
 	
+	var cookieId = $cookies.get('sessionID');
+	console.log("User id session cookie = " + cookieId);
 	
 	
-	$scope.listar= function(){
-		console.log($scope.identificador);
-		Listar.listarReserva($scope.identificador).then(function successCallback(response){
-			console.log(response);
-			$scope.listaReserva= response.data.reservaWs;
-			console.log($scope.listaReserva);
+	
+	
+		console.log(cookieId);
+		Listar.listarReserva(cookieId).then(function successCallback(response){
+			if(response.data.reservaWs.length != undefined){
+				$scope.listaReserva= response.data.reservaWs;
+			}else{
+				$scope.listaReserva= response.data;
+			}
 		}, function errorCallback(response){
 			alert("Id invalido");
 		
 });
 	
-}
+
 	
 	$scope.prestar=function(value){		
 		Prestar.prestar($scope.listaReserva[value].idReserva
 				).success(function(data){
-					console.log(data);
-					if(data != ''){
-						alert(data);
+					
+					if(data == ''){
+						alert("El prestamo no se ha podido realizar");
 						$scope.prestarId = "";
 						
+					}else{
+						alert(data);
+						$location.url("/listarReserva");
 					}
 				});
 }
