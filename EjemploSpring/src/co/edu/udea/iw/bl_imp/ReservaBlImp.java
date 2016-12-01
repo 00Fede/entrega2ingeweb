@@ -200,8 +200,8 @@ public class ReservaBlImp implements ReservaBl {
 	public void hacerPrestamo(int idReserva) throws MyDaoException {
 		
 		if(idReserva==0) throw new MyDaoException("No se ingreso id de reserva",null);
-		if(auth.obtener()==null) throw new MyDaoException("Se ha cerrado su sesion, vuelva a loguearse para continuar",null);
-		if(matchRol(auth.obtener().getId(), "administrador")) throw new MyDaoException("No tiene permiso para realizar esta operacion",null);
+		//if(auth.obtener()==null) throw new MyDaoException("Se ha cerrado su sesion, vuelva a loguearse para continuar",null);
+		//if(matchRol(auth.obtener().getId(), "administrador")) throw new MyDaoException("No tiene permiso para realizar esta operacion",null);
 		
 		Date fechaActual = new Date();
 		
@@ -209,12 +209,14 @@ public class ReservaBlImp implements ReservaBl {
 		if(reserva.getEstado()!=0) throw new MyDaoException("Operacion no permitida, "
 				+ "estado de reserva " +reserva.getEstado(),null);
 		//si reclama el dispositivo despues de la fecha_entrega
+		
+		/*
 		if(reserva.getFecha_entrega().after(fechaActual)){
 			reserva.setEstado(3);
 			reservaDao.modificar(reserva);
 			throw new MyDaoException("Sobrepaso la fecha de entrega, se cancela reserva",null);
 		}
-		
+		*/
 		reserva.setFecha_inicio(fechaActual); //actualiza fecha de inicio de reserva
 		long horas = TimeUnit.HOURS.toMillis(reserva.getTiempo_reserva()); //convierte horas de tiempo de entrega en ms
 		reserva.setFecha_entrega(new Date(horas+fechaActual.getTime())); //la fecha entrega es fecha de inicio mas horas de entrega
@@ -349,6 +351,28 @@ public class ReservaBlImp implements ReservaBl {
 			}
 		}
 		return resultado;
+	}
+
+	@Override
+	public List<Reserva> listarReservas(int idResponsable) throws MyDaoException {
+		if(!isActiveUser(idResponsable)) throw new MyDaoException("No se encuentra activo",null);
+		if(!matchRol(idResponsable, "administrador")) throw new MyDaoException("No tiene permiso para ver este listado",null);
+		List<Reserva> resultado = new ArrayList<Reserva>();
+		List<Reserva> todas = reservaDao.obtener();
+		if(todas==null||todas.size()==0) throw new MyDaoException("No existen prestamos  para el dispositivo con numero de serie  "
+				,null);
+		
+		Iterator<Reserva> i = todas.iterator();
+		while(i.hasNext()){
+			Reserva r = i.next();
+			if((r.getEstado()==0)){
+				resultado.add(r);
+			}
+		}
+		return resultado;
+		
+		// TODO Auto-generated method stub
+		
 	}
 
 	

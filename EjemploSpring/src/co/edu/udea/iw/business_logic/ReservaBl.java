@@ -114,5 +114,9 @@ public interface ReservaBl {
 	 */
 	public void crearReserva(int idInvest, int idDisp,int tiempo, Date fechaEntrega) throws MyDaoException;
 	
-	
+	/*
+	 * Este metodo se encargará de listar todas las reservas que esten en 
+	 * estado de reserva, para luego proceder a su respectivo prestamo.
+	 */
+	public List<Reserva> listarReservas(int idResponsable) throws MyDaoException; 
 }
