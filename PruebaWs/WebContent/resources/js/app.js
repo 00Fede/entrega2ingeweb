@@ -7,6 +7,7 @@
 
 const URL_HOME = "http://localhost:8080/PruebaWs/rest/";
 const URL_USER_SERVICE = "ServicioUsuario/"
+const URL_RESERVA_SERVICE = "ServicioReserva/"
 	
 
 angular.module('app',['ngRoute','ngCookies'])
@@ -28,7 +29,6 @@ angular.module('app',['ngRoute','ngCookies'])
 		})
 	}
 })
-
 .config(['$routeProvider', function($routeProvider) {
 	// Cuando este en '/' corre la configuracion del json
 	// las rutas se hacen relativas a donde esta el index.html
@@ -43,6 +43,25 @@ angular.module('app',['ngRoute','ngCookies'])
 	
 	// aqui irian las otras rutas
 }])
+.service('solicitarReserva', function($http) {
+	
+	this.solicitarReserv = function(idInv, idDev, fecha, tiempo) {
+		return $http({
+			method: "POST",
+			url: URL_HOME+URL_RESERVA_SERVICE+"crearReserva",
+			params:{
+				idInv: idInv,
+				idDev: idDev,
+				fecha: fecha,
+				tiempo: tiempo
+			}
+		});
+		
+	}
+	
+	
+})
+
 
 /**
  * Este controlador permite controlar la vista del login y le agrega
@@ -78,7 +97,6 @@ angular.module('app',['ngRoute','ngCookies'])
 	};
 	
 })
-
 .controller('mainCtrl',  function($scope, $cookies, $log, $location){
 	$scope.idUsuario = $cookies.get('sessionID');
 	$scope.$watch($scope.idUsuario, function(newValue) {
@@ -92,17 +110,21 @@ angular.module('app',['ngRoute','ngCookies'])
 	
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.controller('solicitarReservaCtrl', function($scope, solicitarReserva){
+	$scope.id = '';
+	$scope.idDev = '';
+	$scope.fecha = '';
+	$scope.tiempo = '';
+	
+	$scope.solicitarReserv = function() {
+		solicitarReserva.solicitarReserv($scope.id, $scope.idDev, $scope.fecha, $scope.tiempo)
+						.success(function(data, status, headers, config){
+							console.log("Data recibida = " + data);
+							//Solicitud Exitosa
+							alert(data);
+							console.log("Registro, status= "+status);
+							
+						})
+	};
+	
+})
