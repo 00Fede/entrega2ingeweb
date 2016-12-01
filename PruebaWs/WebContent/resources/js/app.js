@@ -39,7 +39,11 @@ angular.module('app',['ngRoute','ngCookies'])
 	$routeProvider.when('/main',{
 		templateUrl: "pages/main.html",
 		controller: "mainCtrl"
-	})
+	});		
+	$routeProvider.when('/solicitarReserva',{
+	templateUrl: "pages/solicitarReserva.html",
+	controller: "solicitarReservaCtrl"
+	});
 	
 	// aqui irian las otras rutas
 }])
@@ -110,11 +114,14 @@ angular.module('app',['ngRoute','ngCookies'])
 	
 })
 
-.controller('solicitarReservaCtrl', function($scope, solicitarReserva){
+.controller('solicitarReservaCtrl', function($scope, solicitarReserva,$cookies, $location){
 	$scope.id = '';
 	$scope.idDev = '';
 	$scope.fecha = '';
 	$scope.tiempo = '';
+	
+	var cookieId = $cookies.get('sessionID');
+	console.log("User id session cookie = " + cookieId);
 	
 	$scope.solicitarReserv = function() {
 		solicitarReserva.solicitarReserv($scope.id, $scope.idDev, $scope.fecha, $scope.tiempo)
@@ -123,8 +130,8 @@ angular.module('app',['ngRoute','ngCookies'])
 							//Solicitud Exitosa
 							alert(data);
 							console.log("Registro, status= "+status);
-							
 						})
+						
 	};
 	
 })

@@ -62,7 +62,7 @@ public class PeticionBlImpTest {
 		int cedula = 1039464100;
 		String nombre = "Mauricio";
 		String apellido = "Quintero";
-		String contrasena = "mauricio";
+		String contrasena = "123456";
 		String telefono = "2773632";
 		String direccion = "alguna direccion";
 		String email = "mauricioinvest@gmail.com";
@@ -84,7 +84,7 @@ public class PeticionBlImpTest {
 	 */
 	@Test
 	public void testEvaluarPeticionDeAcceso() {
-		int idPeticion = 12;
+		int idPeticion = 11;
 		String estado = PeticionAcceso.USUARIO_APROBADO;
 		int admin = 1039;
 		String justificacion = "Mauricio es investigador";
