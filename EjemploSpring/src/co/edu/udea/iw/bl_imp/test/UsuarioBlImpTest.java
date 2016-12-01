@@ -28,12 +28,12 @@ public class UsuarioBlImpTest {
 	
 	@Test
 	public void testRegistrarAdministrador() throws SerialException, SQLException {
-		int cedula = 10189;
+		int cedula = 111;
 		int superuserid = 777;
-		String name = "carlos";
-		String lastname = "guerra";
+		String name = "Arturo";
+		String lastname = "Vidal";
 		String nombreUsuario = "fedonf";
-		String contrasena = "gueuhuig";
+		String contrasena = "123456";
 		String direccion = "direccion1";
 		String correo = "correo@correo.com";
 		byte[] fotoRAW = "usuario".getBytes();

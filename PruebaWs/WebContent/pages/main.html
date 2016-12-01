@@ -25,14 +25,13 @@
 <body ng-app="main">
 	<div ng-controller="navCtrl">
 		<ul class="nav nav-tabs">
-			<li role="presentation" class="active"><a href="welcome.html">Home</a></li>
-			<li role="presentation"><a href="solicitarReserva.html">Solicitar
+			<li role="presentation" class="active"><a href="main.html">Home</a></li>
+			<li role="presentation"><a ng-click="irSolicitarReservas()">Solicitar
 					Reserva</a></li>
-			<li role="presentation"><a href="listarReserva.html">Listar
+			<li role="presentation"><a ng-click="irListarReservas()">Listar
 					Reservas</a></li>
+			<li role="presentation"><a ng-click="logout()">Cerrar Sesión</a></li>
 		</ul>
-		<strong>Bienvenido {{idUsuario}}</strong> <button ng-click="logout()">Cerrar
-			Sesión</button>
 	</div>
 	<div ng-view></div>
 </body>
