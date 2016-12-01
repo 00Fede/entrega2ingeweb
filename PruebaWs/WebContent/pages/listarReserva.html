@@ -1,0 +1,57 @@
+<form name="listarReserva">
+	<script src="../resources/js/angular.min.js"></script>
+	<script src="../resources/js/angular-route.min.js"></script>
+	<script src="../resources/js/app.js"></script>
+	<script src="../resources/js/angular-cookies.js"></script>
+<div>
+
+	<div>
+		<div>
+			<label> Ingrese Un Id Administrador:</label>
+			<input type="text" required
+				placeholder="ID"
+				ng-model="identificador"/>	
+					
+		</div>
+		<br>
+		<button type="submit" ng-click="listar()">Listar Reservas</button>
+		<br>
+	</div>
+	<br>
+	<div>
+		<table border="1" width="100%">
+		<tr>
+			<th>Id Reserva</th>
+			<th>Fecha Inicio</th>
+			<th>Nombre Dispositivo</th>
+			<th>Id Dispositivo</th>
+			<th>Realizar Prestamo</th>
+		</tr>
+		
+		<tr ng-repeat="data in listaReserva">
+			<td>{{data.idReserva}}</td>
+			<td>{{data.fechaInicio}}</td>
+			<td>{{data.dispositivo.nombre}}</td>
+			<td>{{data.dispositivo.id}}</td>
+			<td>
+				<button class="btn btn-primary" 
+				ng-click="prestar($index)">Prestar</button></td>
+			</td>
+		</tr>
+	</table>
+	</div>
+	
+	<div>
+		<label> Ingrese el Id de la reserva:</label>
+			<input type="text" 
+				placeholder="Reserva"
+				ng-model="prestarId"/>	
+				
+		
+	</div>
+	<br>
+		<button type="submit" ng-click="prestar()">Realizar Prestamo</button>
+	<br>
+</div>
+
+</form>

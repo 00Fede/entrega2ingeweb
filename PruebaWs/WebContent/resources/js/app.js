@@ -29,6 +29,33 @@ angular.module('app',['ngRoute','ngCookies'])
 		})
 	}
 })
+
+.service('Listar', function($http){
+	this.listarReserva = function(identificador){
+		return $http({
+			method: 'GET',
+			url: 'http://localhost:8080/PruebaWs/rest/ServicioReserva/listarReservas',
+			params:{
+				id: identificador
+				
+			}
+		})
+	}
+})
+
+.service('Prestar', function($http){
+	this.prestar = function(idReserva){
+		return $http({
+			method: 'PUT',
+			url: 'http://localhost:8080/PruebaWs/rest/ServicioReserva/prestamo',
+			params:{
+				id : idReserva
+			}
+		})
+	}
+})
+
+
 .config(['$routeProvider', function($routeProvider) {
 	// Cuando este en '/' corre la configuracion del json
 	// las rutas se hacen relativas a donde esta el index.html
@@ -39,7 +66,12 @@ angular.module('app',['ngRoute','ngCookies'])
 	$routeProvider.when('/main',{
 		templateUrl: "pages/main.html",
 		controller: "mainCtrl"
-	})
+	});
+	$routeProvider.when('/listarReserva',{
+		templateUrl: "pages/listarReserva.html",
+		controller: "listarReservaCtrl"
+	});
+	
 	
 	// aqui irian las otras rutas
 }])
@@ -83,12 +115,12 @@ angular.module('app',['ngRoute','ngCookies'])
 							alert(data.message);
 							console.log("Registro, status= "+status);
 							if(data.estado==200){
-								//solo si el registro es exitoso
+								// solo si el registro es exitoso
 								var today = new Date();
 								var expired = new Date(today);
 								console.log("cookie generated at " + expired);
 								expired.setMinutes(today.getMinutes() + 30);
-								//expired.setDate(today.getDate() + 1);
+								// expired.setDate(today.getDate() + 1);
 								console.log("cookies expires at " + expired);
 								$cookies.put('sessionID',$scope.id,{expires: expired});
 								$location.url("/main");
@@ -102,7 +134,7 @@ angular.module('app',['ngRoute','ngCookies'])
 	$scope.$watch($scope.idUsuario, function(newValue) {
         console.log('Cookie changed, string: ' + $scope.idUsuario)
         if($scope.idUsuario===undefined){
-        	$location.url('/'); //vuelve al login
+        	$location.url('/'); // vuelve al login
         }
     });
 	console.log("SessionID obtained from cookies in main = " + $scope.idUsuario);
@@ -120,7 +152,7 @@ angular.module('app',['ngRoute','ngCookies'])
 		solicitarReserva.solicitarReserv($scope.id, $scope.idDev, $scope.fecha, $scope.tiempo)
 						.success(function(data, status, headers, config){
 							console.log("Data recibida = " + data);
-							//Solicitud Exitosa
+							// Solicitud Exitosa
 							alert(data);
 							console.log("Registro, status= "+status);
 							
@@ -128,3 +160,40 @@ angular.module('app',['ngRoute','ngCookies'])
 	};
 	
 })
+
+.controller('listarReservaCtrl', function($scope, Listar,Prestar){ 
+	$scope.identificador = "";
+	$scope.idReserva = "";
+	
+	
+	
+	$scope.listar= function(){
+		console.log($scope.identificador);
+		Listar.listarReserva($scope.identificador).then(function successCallback(response){
+			console.log(response);
+			$scope.listaReserva= response.data.reservaWs;
+			console.log($scope.listaReserva);
+		}, function errorCallback(response){
+			alert("Id invalido");
+		
+});
+	
+}
+	
+	$scope.prestar=function(value){		
+		Prestar.prestar($scope.listaReserva[value].idReserva
+				).success(function(data){
+					console.log(data);
+					if(data != ''){
+						alert(data);
+						$scope.prestarId = "";
+						
+					}
+				});
+}
+		
+})
+
+
+
+

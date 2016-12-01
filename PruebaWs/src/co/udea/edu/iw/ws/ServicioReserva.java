@@ -259,6 +259,49 @@ public class ServicioReserva {
 	}
 	
 	/**
+	 * Este servicio se encargará de en nuestra entidad de reserva 
+	 * todos los registros que aun contentan la caracteristica de reservas,
+	 * para identificarlos y posteriormente convertirlos en prestamo
+	 * @param idResponsable
+	 * @return
+	 * @throws RemoteException
+	 * url: http://localhost:8080/PruebaWs/rest/ServicioReserva/listarReservas?id=1039
+	 * @throws SQLException 
+	 */
+	
+	@GET
+	@Path("listarReservas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ReservaWs> listarReserva(@QueryParam("id")int idResponsable) throws RemoteException, SQLException{
+		List<Reserva> data = null;
+		List<ReservaWs> reservas = new ArrayList<>();
+		try{
+			data = reservaBl.listarReservas(idResponsable);
+			Iterator<Reserva> i = data.iterator();
+			
+			while(i.hasNext()){
+				Reserva r = i.next();
+				Dispositivos d = r.getId_dispositivo();
+				//podria iniciar d aqui y tomar valores en dws
+				           
+					DispositivoWs disp = new DispositivoWs();
+					disp.setId(d.getNumero_serie());
+					disp.setNombre(d.getNombre()); 
+					disp.setFoto(d.getFoto().getBytes(1,(int)d.getFoto().length())); 
+					ReservaWs rw = new ReservaWs(r.getId_reserva(), 
+							r.getFecha_inicio(), r.getFecha_entrega(),disp);
+					
+					reservas.add(rw);
+				
+			}
+		}catch(MyDaoException e){
+			throw new RemoteException(e.getMessage(),e);
+		}
+		return reservas;		
+	}
+	
+	
+	/**
 	 * Servicio web para FRQ-00009 - Reservar Dispositivo
 	 * Este servicio web permite la creacion de una nueva reserva. Solo los administradores pueden acceder a esta
 	 * funcionalidad, esto se verifica con la sesion abierta en el sistema. Se debe ingresar el id del investigador, dispo

@@ -126,6 +126,10 @@ INSERT INTO sancion VALUES (8899,333,1012,1039,'2016-10-20','limite de tiempo','
 
 INSERT INTO reserva VALUES (9988,333,1012,1039,'2016-10-18',NULL,'72',0);
 
+INSERT INTO reserva VALUES (1,333,1012,1039,'2016-10-18',NULL,'72',0);
+INSERT INTO reserva VALUES (2,552,1012,1039,'2016-10-18',NULL,'72',0);
+INSERT INTO reserva VALUES (3,555,1012,1039,'2016-10-18',NULL,'72',0);
+
 INSERT INTO peticion_acceso VALUES (1,333,'jacinto','perez','japerez','password',
 'cl 76S','japerez@correo.com','3ab4','3332548','pendiente',1020,'justificacion');
 
